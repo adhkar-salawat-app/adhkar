@@ -9,7 +9,7 @@ on:
         required: false
         default: ''
 permissions:
-  contents: write
+  contents: read
 concurrency: push
 jobs:
   send:
@@ -20,13 +20,13 @@ jobs:
         with:
           node-version: '20'
       - run: npm install web-push@3 --no-save --no-package-lock
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: state-${{ github.run_id }}
+          restore-keys: state-
       - run: node send.js
         env:
           VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
           TEST: ${{ github.event.inputs.test }}
-      - name: save state
-        run: |
-          git config user.name "push-bot"
-          git config user.email "push-bot@users.noreply.github.com"
-          git add state.json || true
-          git diff --cached --quiet || (git commit -m "state" && git push)
+          SUB_JSON: ${{ secrets.SUB_JSON }}
