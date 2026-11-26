@@ -3,7 +3,7 @@ const PUB='BHdDUeV5am1b08uzdY0yxPmFhxm4QVaa_6JdjKg8Iv3kk8QiSVf3oAXU3W1vbuWC7WNvy
 const TZ='Africa/Cairo';
 async function main(){
  if(!process.env.SUB_JSON){console.log('no subscription yet');return}
- const d=JSON.parse(process.env.SUB_JSON);const sub=d.s,c=d.c||{};
+ const d=JSON.parse(/^\s*\{/.test(process.env.SUB_JSON)?process.env.SUB_JSON:Buffer.from(process.env.SUB_JSON.trim(),'base64').toString('utf8'));const sub=d.s,c=d.c||{};
  webpush.setVapidDetails('https://adhkar-salawat-app.github.io/adhkar/',PUB,process.env.VAPID_PRIVATE);
  const test=(process.env.TEST||'').trim();
  if(test){await webpush.sendNotification(sub,JSON.stringify({title:'أذكار وصلاة على النبي',body:test,tag:'test'}));console.log('test sent');return}
