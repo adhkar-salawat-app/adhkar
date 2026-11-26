@@ -7,36 +7,38 @@
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQMAAABoEv5EAAAABlBMVEXz6cYPXErL2DvnAAACN0lEQVR42u1WO5KdMBBsPlVL4DKEL1uO4BssR/INnnwDH4kj+AgKN9S6HLBVmHYgiRkJnsF24gACQGpNjz49oymI/afEBVzABVwAgC/JKK6PBZ6kVUguKQBwh+odAPod4HV9eXtqJsW1WvwE7gswbGY1oSUdnmO7FBefgY/KSRwxVvImyRVAS5IOORXxCQA+wGRUc/jBS0blAvnYZlSu9t9+yhZob/57mzNgDNtXL5lz3P13Qep8kfXcU+dVZBhTH0sdgX5MgFlEYBNgamJ/59LpdhFoUh9uVUE9JYBdj7ScDyQaFma0BPXKCwFMJoZ9tWt8MKfio5aeXgOLHjtqi0b6O20xawurLTrpb05Frd/RN2/ntEUPAF+/65l7gb6QpG/MrdorF4JtEN5ANfg5W+lRs5qi3xxwkeV09rHp1vg4IkkDFCRZnTnah/IZ/cJ962+p/hfAxIT5T1S98cdbAmCdW/SJ6M/46BLRl4mauw0wem32EkSlREEVgqnZODfF5mjdM0m6liQnLWpv3ToVXUfrcIm2Baj12D7JiYnoBUg8DafS68PU9wcZ7mGyLJN8p7Lg0ZbEy0EujJivbATmLF+5bA/XnLhulutOpdf1cpALo5TKQO/tby7IaGHCQpYik+gQFjKXGdCHKuK1zoAuTMs2R6WBUA5+1vl0H5YfGH8AwLdqU8lY3MlFarLjoqjGm2EnJdlx4eWl+bQTzrf1lVE9LAdhNZOuLGmUtHVleZXnF3ABFxCeXzYfNl0d4k+TAAAAAElFTkSuQmCC">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
+:root{--ac:#0f5c4a;--ac2:#2e8f78;--acl:#8ad6bd}body.th-b{--ac:#1f5f99;--ac2:#3d86c6;--acl:#9cc9f0}body.th-p{--ac:#5b3f8f;--ac2:#8466b8;--acl:#c9b3ee}body.th-g{--ac:#8a6417;--ac2:#b58a2c;--acl:#ecd08a}body.th-r{--ac:#8f2f45;--ac2:#c0566d;--acl:#f1a9b8}
+
 *{box-sizing:border-box}body{margin:0;background:#fbf8ef;color:#23302b;font:18px/1.8 system-ui,"Noto Sans Arabic",sans-serif}
-header{background:#0f5c4a;color:#fff;padding:18px 16px;text-align:center}header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
-nav{display:flex;gap:8px;overflow-x:auto;padding:12px 12px 4px}nav button{flex:none;border:1px solid #c9d6cf;background:#fff;border-radius:999px;padding:10px 16px;font:inherit;font-size:.95rem;color:#23302b}nav button.on{background:#0f5c4a;color:#fff;border-color:#0f5c4a}
+header{background:var(--ac);color:#fff;padding:18px 16px;text-align:center}header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px 12px 4px}nav button{flex:none;border:1px solid #c9d6cf;background:#fff;border-radius:999px;padding:10px 16px;font:inherit;font-size:.95rem;color:#23302b}nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 main{padding:12px;max-width:640px;margin:auto}.card{background:#fff;border:1px solid #e1e6df;border-radius:16px;padding:14px;margin-bottom:12px}.card.done{opacity:.55}
 .t{display:block;width:100%;text-align:start;background:none;border:0;font:inherit;font-size:1.15rem;line-height:2;padding:4px 0;color:inherit}
-.r{display:flex;justify-content:space-between;align-items:center;color:#5b6b64;font-size:.95rem}.r button{border:0;background:none;color:#0f5c4a;font:inherit;padding:8px}
-.big{display:block;margin:12px auto;width:200px;height:200px;border-radius:50%;border:3px solid #0f5c4a;background:#fff;font:inherit;font-size:3.5rem;color:#0f5c4a}.big:active{transform:scale(.97)}
-h2{font-size:1.05rem;margin:18px 4px 8px}.opt{display:flex;gap:8px;flex-wrap:wrap}.opt button,.btn{border:1px solid #0f5c4a;background:#fff;color:#0f5c4a;border-radius:12px;padding:10px 14px;font:inherit;font-size:.95rem}.opt button.on{background:#0f5c4a;color:#fff}
+.r{display:flex;justify-content:space-between;align-items:center;color:#5b6b64;font-size:.95rem}.r button{border:0;background:none;color:var(--ac);font:inherit;padding:8px}
+.big{display:block;margin:12px auto;width:200px;height:200px;border-radius:50%;border:3px solid var(--ac);background:#fff;font:inherit;font-size:3.5rem;color:var(--ac)}.big:active{transform:scale(.97)}
+h2{font-size:1.05rem;margin:18px 4px 8px}.opt{display:flex;gap:8px;flex-wrap:wrap}.opt button,.btn{border:1px solid var(--ac);background:#fff;color:var(--ac);border-radius:12px;padding:10px 14px;font:inherit;font-size:.95rem}.opt button.on{background:var(--ac);color:#fff}
 small{display:block;color:#5b6b64;margin-top:8px;font-size:.85rem;line-height:1.6}
 
 nav{scrollbar-width:none}
 .sec{margin:0 0 14px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #e6ebe4}
-.row:last-child{border:0}.sw{width:52px;height:30px;border-radius:999px;border:0;background:#c9d6cf;position:relative;flex:none}.sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.15s}.sw.on{background:#0f5c4a}.sw.on::after{inset-inline-start:25px}
+.row:last-child{border:0}.sw{width:52px;height:30px;border-radius:999px;border:0;background:#c9d6cf;position:relative;flex:none}.sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.15s}.sw.on{background:var(--ac)}.sw.on::after{inset-inline-start:25px}
 .spk{border:0;background:none;font-size:1.3rem;padding:6px 10px}
-.qa{display:block;color:#0f5c4a;font-size:.9rem;margin-top:6px}.qs{font-size:1rem;line-height:1.9;margin:6px 0}.warn{background:#fff6dc;border:1px solid #ecd9a0;border-radius:12px;padding:10px 12px;font-size:.9rem;margin-bottom:12px}
+.qa{display:block;color:var(--ac);font-size:.9rem;margin-top:6px}.qs{font-size:1rem;line-height:1.9;margin:6px 0}.warn{background:#fff6dc;border:1px solid #ecd9a0;border-radius:12px;padding:10px 12px;font-size:.9rem;margin-bottom:12px}
 body.fs1{font-size:16px}body.fs3{font-size:21px}
 
 html,body{overflow-x:hidden}#tabs{visibility:hidden}#tabs.open{visibility:visible}.dev{margin-top:auto;padding:14px;text-align:center;font-size:.95rem;opacity:.8}
-body.dark{background:#10161a;color:#e8efe9}body.dark .card{background:#182026;border-color:#2a363d}body.dark nav button{background:#182026;color:#e8efe9;border-color:#2a363d}body.dark nav button.on{background:#2e8f78;border-color:#2e8f78;color:#fff}
-body.dark .big{background:#182026;color:#8ad6bd;border-color:#2e8f78}body.dark .opt button,body.dark .btn{background:#182026;color:#8ad6bd;border-color:#2e8f78}body.dark .opt button.on{background:#2e8f78;color:#fff}
-body.dark .r,body.dark small{color:#9fb0a9}body.dark .r button,body.dark .qa{color:#8ad6bd}body.dark .row{border-color:#2a363d}body.dark .warn{background:#2b2616;border-color:#5a4d22}
-.pt{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e6ebe4}.pt.nx{font-weight:700;color:#0f5c4a}body.dark .pt{border-color:#2a363d}body.dark .pt.nx{color:#8ad6bd}
-.bar{height:10px;border-radius:5px;background:#0f5c4a;margin-top:4px}.num{font-size:2rem;font-weight:700}.arrow{width:160px;height:160px;margin:12px auto;border:3px solid #0f5c4a;border-radius:50%;position:relative}.arrow i{position:absolute;inset:8px 74px 80px;background:#0f5c4a;border-radius:6px}.src{font-size:.8rem;color:#5b6b64;margin-top:8px;line-height:1.6}.ayah{font-size:1.4rem;line-height:2.3}
+body.dark{background:#10161a;color:#e8efe9}body.dark .card{background:#182026;border-color:#2a363d}body.dark nav button{background:#182026;color:#e8efe9;border-color:#2a363d}body.dark nav button.on{background:var(--ac2);border-color:var(--ac2);color:#fff}
+body.dark .big{background:#182026;color:var(--acl);border-color:var(--ac2)}body.dark .opt button,body.dark .btn{background:#182026;color:var(--acl);border-color:var(--ac2)}body.dark .opt button.on{background:var(--ac2);color:#fff}
+body.dark .r,body.dark small{color:#9fb0a9}body.dark .r button,body.dark .qa{color:var(--acl)}body.dark .row{border-color:#2a363d}body.dark .warn{background:#2b2616;border-color:#5a4d22}
+.pt{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e6ebe4}.pt.nx{font-weight:700;color:var(--ac)}body.dark .pt{border-color:#2a363d}body.dark .pt.nx{color:var(--acl)}
+.bar{height:10px;border-radius:5px;background:var(--ac);margin-top:4px}.num{font-size:2rem;font-weight:700}.arrow{width:160px;height:160px;margin:12px auto;border:3px solid var(--ac);border-radius:50%;position:relative}.arrow i{position:absolute;inset:8px 74px 80px;background:var(--ac);border-radius:6px}.src{font-size:.8rem;color:#5b6b64;margin-top:8px;line-height:1.6}.ayah{font-size:1.4rem;line-height:2.3}
 select{font:inherit;padding:10px;border-radius:12px;border:1px solid #c9d6cf;background:#fff;color:#23302b;width:100%}body.dark select{background:#182026;color:#e8efe9;border-color:#2a363d}
 
 header{position:relative}#menu{position:absolute;inset-inline-start:10px;top:12px;background:rgba(255,255,255,.15);border:0;color:#fff;font-size:1.5rem;border-radius:10px;width:44px;height:44px}
 #tabs{position:fixed;top:0;bottom:0;inset-inline-start:0;width:75%;max-width:300px;background:#fff;z-index:20;display:flex;flex-direction:column;gap:4px;overflow-y:auto;padding:16px 10px;transform:translateX(100%);transition:transform .2s;box-shadow:-4px 0 18px rgba(0,0,0,.2)}
 #tabs.open{transform:none}#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:10}#ov.open{display:block}
 #tabs button,body.dark #tabs button{border:0;border-radius:12px;text-align:start;padding:12px 14px;width:100%;flex:none;font-size:1.05rem;background:transparent}
-#tabs button.on{background:#0f5c4a;color:#fff}body.dark #tabs{background:#182026}body.dark #tabs button.on{background:#2e8f78}
+#tabs button.on{background:var(--ac);color:#fff}body.dark #tabs{background:#182026}body.dark #tabs button.on{background:var(--ac2)}
 #nm{font-size:1.05rem;font-weight:700;margin:2px 0 0;opacity:1}#nm:empty{display:none}
 
 body.hm{background:#2c3846;color:#eef2f6}body.hm header{display:none}#hero{display:none}body.hm .warn{background:#3a3a2a}
@@ -54,18 +56,25 @@ body.hm{background:#2c3846;color:#eef2f6}body.hm header{display:none}#hero{displ
 #sp.out{opacity:0;pointer-events:none}#sp .sa{font-size:2.3rem;font-weight:700;line-height:1.6}#sp .sm{margin-top:14px;font-size:1.1rem;opacity:.9}#sp .sn{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 34px);font-size:1.1rem;opacity:.9}
 
 .sl{display:flex;align-items:center;gap:12px;width:100%;border:0;border-bottom:1px solid #e6ebe4;background:none;font:inherit;padding:11px 4px;text-align:start;color:inherit}body.dark .sl{border-color:#2a363d}
-.sl i{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid #0f5c4a;display:grid;place-items:center;font-style:normal;font-size:.9rem;color:#0f5c4a}body.dark .sl i{border-color:#2e8f78;color:#8ad6bd}
+.sl i{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--ac);display:grid;place-items:center;font-style:normal;font-size:.9rem;color:var(--ac)}body.dark .sl i{border-color:var(--ac2);color:var(--acl)}
 .sl b{flex:1;font-size:1.15rem}.sl small{margin:0;white-space:nowrap}
 .mq{font-family:"Amiri Quran","Amiri","Noto Naskh Arabic","Geeza Pro","Scheherazade New",serif;line-height:2.5;text-align:justify;padding:6px 2px}.ay{cursor:pointer;border-radius:8px}.ay.on{background:rgba(224,176,112,.3)}.ay em{font-style:normal;color:#b8862f;font-size:.8em}
 .mb{text-align:center;font-family:"Amiri Quran","Amiri","Noto Naskh Arabic","Geeza Pro",serif;font-size:1.5rem;margin:6px 0 12px}
-.mt{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.mt button{border:1px solid #0f5c4a;background:none;color:inherit;border-radius:12px;padding:8px 12px;font:inherit;font-size:.95rem}body.dark .mt button{border-color:#2e8f78}
+.mt{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.mt button{border:1px solid var(--ac);background:none;color:inherit;border-radius:12px;padding:8px 12px;font:inherit;font-size:.95rem}body.dark .mt button{border-color:var(--ac2)}
 .si{width:100%;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid #c9d6cf;background:#fff;color:#23302b;margin-bottom:8px}body.dark .si{background:#182026;color:#e8efe9;border-color:#2a363d}
 .hc.mu{border-color:#e0b07088}
+
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+#bn{position:fixed;bottom:0;inset-inline:0;z-index:5;display:flex;background:#1f2a36;border-top:1px solid rgba(255,255,255,.12);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+#bn button{flex:1;border:0;background:none;color:#aeb9c5;font:inherit;font-size:.72rem;display:flex;flex-direction:column;align-items:center;gap:0;padding:4px 0}#bn button i{font-style:normal;font-size:1.35rem;line-height:1.3}#bn button.on{color:#f0c36a}
+.fv{border:0;background:none;font-size:1.4rem;color:#d9a93a;padding:6px 10px}.nm{display:grid;grid-template-columns:1fr 1fr;gap:10px}.nm button{border:1px solid #c9d6cf;background:#fff;border-radius:16px;padding:12px 6px;font:inherit;font-size:1.25rem;color:inherit;position:relative}body.dark .nm button{background:#182026;border-color:#2a363d}.nm button.d{border-color:var(--ac);background:rgba(120,180,150,.18)}.nm button small{display:block;margin:0;font-size:.75rem}
+.qk{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.qk button{border:1px solid var(--ac);background:none;color:inherit;border-radius:999px;padding:8px 14px;font:inherit;font-size:.95rem}
+.rs{display:block;width:100%;text-align:start;border:0;border-bottom:1px solid #e6ebe4;background:none;font:inherit;color:inherit;padding:10px 4px;line-height:1.9}body.dark .rs{border-color:#2a363d}.rs small{margin:0;color:var(--ac)}body.dark .rs small{color:var(--acl)}
 </style></head><body>
 <div id="sp"><div class="sa">أذكار وصلاة<br>على النبي ﷺ</div><div class="sm">اللهم صلِّ وسلِّم وبارك على سيدنا محمد</div><div class="sn">سمير يحيي</div></div>
 <div id="hero"></div>
 <header><button id="menu" aria-label="القائمة">☰</button><h1>أذكار وصلاة على النبي</h1><p id="nm">سمير يحيي</p><p>إجمالي ما سبحت: <b id="total" dir="ltr">0</b></p></header>
-<div id="ov"></div><nav id="tabs" aria-label="الأقسام"></nav><main><div id="list"></div><div id="extra"></div>
+<div id="ov"></div><nav id="bn"></nav><nav id="tabs" aria-label="الأقسام"></nav><main><div id="list"></div><div id="extra"></div>
 <div id="dh"><h2>سبحة حرة</h2><button class="big" id="free" dir="ltr">0</button><div style="text-align:center"><button class="btn" id="freeReset">تصفير السبحة</button></div>
 <h2>التذكير بالصلاة على النبي</h2><div class="opt" id="rem"></div>
 <small id="remNote">التذكير يعمل والتطبيق مفتوح فقط. بعد التثبيت على الشاشة الرئيسية يمكن السماح بالإشعارات.</small></div></main>
@@ -75,7 +84,7 @@ body.hm{background:#2c3846;color:#eef2f6}body.hm header{display:none}#hero{displ
 <script src="aud4.js"></script>
 <script>
 const sets=[
-{k:'home',l:'الرئيسية'},{k:'mushaf',l:'المصحف'},
+{k:'home',l:'الرئيسية'},{k:'hisn',l:'حصن المسلم'},{k:'mushaf',l:'المصحف'},{k:'names',l:'أسماء الله الحسنى'},{k:'fav',l:'المفضلة'},{k:'search',l:'بحث'},{k:'counter',l:'السبحة الحرة',i:[]},
 {k:'salawat',l:'الصلاة على النبي',i:[['اللهم صلِّ على محمد وعلى آل محمد',100],['صلى الله على سيدنا محمد',100],['اللهم صلِّ وسلِّم وبارك على سيدنا محمد',100]]},
 {k:'morning',l:'أذكار الصباح',i:[['أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['سبحان الله وبحمده',100],['لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير',10],['أستغفر الله وأتوب إليه',100]]},
 {k:'evening',l:'أذكار المساء',i:[['أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['أعوذ بكلمات الله التامات من شر ما خلق',3],['بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم',3],['حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم',7]]},
@@ -124,7 +133,7 @@ function mk(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=
 function toggle(on,fn){const b=mk('button','sw'+(on?' on':''));b.setAttribute('role','switch');b.setAttribute('aria-checked',on);b.onclick=fn;return b}
 function opts(list,cur,fn){const w=mk('div','opt');list.forEach(([v,l])=>{const b=mk('button',cur===v?'on':'',l);b.onclick=()=>fn(v);w.appendChild(b)});return w}
 function render(){
- document.body.className='fs'+cfg.fs+((cfg.theme==='dark'||(cfg.theme==='auto'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?' dark':'');clearInterval(tick);document.body.classList.toggle('hm',tab==='home');$('hero').style.display=tab==='home'?'block':'none';
+ document.body.className='fs'+cfg.fs+((cfg.theme==='dark'||(cfg.theme==='auto'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?' dark':'');clearInterval(tick);document.body.classList.toggle('hm',tab==='home');$('hero').style.display=tab==='home'?'block':'none';document.body.classList.add('th-'+(cfg.th||'e'));drawBN();
  $('total').textContent=total;$('free').textContent=free;
  $('tabs').innerHTML='';sets.forEach(s=>{const b=mk('button',s.k===tab?'on':'',s.l);b.onclick=()=>{tab=s.k;S('tab',tab);closeM();window.scrollTo(0,0);render()};$('tabs').appendChild(b)});$('tabs').appendChild(mk('div','dev','سمير يحيي'));
  const set=sets.find(s=>s.k===tab);$('list').innerHTML='';$('extra').innerHTML='';
@@ -137,7 +146,7 @@ function render(){
   const z=mk('button',null,'تصفير');z.onclick=()=>{counts[id]=0;S('c',counts);render()};
   const rb=mk('span');rb.append(k,z);r.appendChild(rb);d.append(t,r);$('list').appendChild(d)});
  $('rem').innerHTML='';[[0,'بدون'],[15,'كل ١٥ دقيقة'],[30,'كل ٣٠ دقيقة'],[60,'كل ساعة']].forEach(([m,l])=>{const b=mk('button',every===m?'on':'',l);b.onclick=()=>setEvery(m);$('rem').appendChild(b)});
- }else if(tab==='home'){homeView()}else if(tab==='mushaf'){mushafView()}else if(tab==='pray'){
+ }else if(tab==='home'){homeView()}else if(tab==='mushaf'){mushafView()}else if(tab==='hisn'){hisnView()}else if(tab==='names'){namesView()}else if(tab==='fav'){favView()}else if(tab==='search'){searchView()}else if(tab==='pray'){
   const w=$('extra'),c=mk('div','card');w.appendChild(c);
   const sel=mk('select');const o0=mk('option',null,'اختر مدينتك');o0.value='';sel.appendChild(o0);CITIES.forEach(([n],i)=>{const o=mk('option',null,n);o.value=i;if(place&&place.name===n)o.selected=true;sel.appendChild(o)});
   sel.onchange=()=>{if(sel.value==='')return;const [n,la,lo]=CITIES[sel.value];place={name:n,lat:la,lon:lo};S('place',place);render()};
@@ -187,6 +196,7 @@ function render(){
   const w=$('extra');const c=mk('div','card');
   const row=(lab,ctl,sub)=>{const r=mk('div','row');const a=mk('div');a.appendChild(mk('div',null,lab));if(sub)a.appendChild(mk('small',null,sub));r.append(a,ctl);c.appendChild(r)};
   row('المظهر',opts([['auto','تلقائي'],['light','فاتح'],['dark','داكن']],cfg.theme,x=>{cfg.theme=x;sv();render()}));
+  row('لون التطبيق',opts([['e','أخضر'],['b','أزرق'],['p','بنفسجي'],['g','ذهبي'],['r','وردي']],cfg.th||'e',x=>{cfg.th=x;sv();render()}));
   row('نطق الذكر بصوت عند الضغط',toggle(cfg.speak,()=>{cfg.speak=!cfg.speak;sv();render()}));
   const v=arVoice();
   row('مصدر الصوت',opts([['rec','تسجيل صوتي'],['tts','صوت الجهاز']],cfg.voice,x=>{cfg.voice=x;sv();render()}),'التسجيلات الصوتية: '+REC.length)
@@ -263,9 +273,68 @@ async function enablePush(msg){
   S('psub',sub.toJSON());render()
  }catch(e){msg('تعذر التفعيل: '+(e&&e.message?e.message:e))}
 }
+
+const NAMES=["الرَّحْمَنُ", "الرَّحِيمُ", "الْمَلِكُ", "الْقُدُّوسُ", "السَّلاَمُ", "الْمُؤْمِنُ", "الْمُهَيْمِنُ", "الْعَزِيزُ", "الْجَبَّارُ", "الْمُتَكَبِّرُ", "الْخَالِقُ", "الْبَارِئُ", "الْمُصَوِّرُ", "الْغَفَّارُ", "الْقَهَّارُ", "الْوَهَّابُ", "الرَّزَّاقُ", "الْفَتَّاحُ", "اَلْعَلِيْمُ", "الْقَابِضُ", "الْبَاسِطُ", "الْخَافِضُ", "الرَّافِعُ", "الْمُعِزُّ", "المُذِلُّ", "السَّمِيعُ", "الْبَصِيرُ", "الْحَكَمُ", "الْعَدْلُ", "اللَّطِيفُ", "الْخَبِيرُ", "الْحَلِيمُ", "الْعَظِيمُ", "الْغَفُورُ", "الشَّكُورُ", "الْعَلِيُّ", "الْكَبِيرُ", "الْحَفِيظُ", "المُقيِت", "الْحسِيبُ", "الْجَلِيلُ", "الْكَرِيمُ", "الرَّقِيبُ", "الْمُجِيبُ", "الْوَاسِعُ", "الْحَكِيمُ", "الْوَدُودُ", "الْمَجِيدُ", "الْبَاعِثُ", "الشَّهِيدُ", "الْحَقُّ", "الْوَكِيلُ", "الْقَوِيُّ", "الْمَتِينُ", "الْوَلِيُّ", "الْحَمِيدُ", "الْمُحْصِي", "الْمُبْدِئُ", "الْمُعِيدُ", "الْمُحْيِي", "اَلْمُمِيتُ", "الْحَيُّ", "الْقَيُّومُ", "الْوَاجِدُ", "الْمَاجِدُ", "الْواحِدُ", "اَلاَحَدُ", "الصَّمَدُ", "الْقَادِرُ", "الْمُقْتَدِرُ", "الْمُقَدِّمُ", "الْمُؤَخِّرُ", "الأوَّلُ", "الآخِرُ", "الظَّاهِرُ", "الْبَاطِنُ", "الْوَالِي", "الْمُتَعَالِي", "الْبَرُّ", "التَّوَّابُ", "الْمُنْتَقِمُ", "العَفُوُّ", "الرَّؤُوفُ", "مَالِكُ الْمُلْكِ", "ذُوالْجَلاَلِ وَالإكْرَامِ", "الْمُقْسِطُ", "الْجَامِعُ", "الْغَنِيُّ", "الْمُغْنِي", "اَلْمَانِعُ", "الضَّارَّ", "النَّافِعُ", "النُّورُ", "الْهَادِي", "الْبَدِيعُ", "اَلْبَاقِي", "الْوَارِثُ", "الرَّشِيدُ", "الصَّبُورُ"];
+const nA=t=>t.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+let hP=null;function loadH(){if(hP)return hP;hP=new Promise((res,rej)=>{if(window.HISN&&window.HISN.length>=133)return res(window.HISN);let k=0;[1,2].forEach(n=>{const sc=document.createElement('script');sc.src='hisn'+n+'.js';sc.onload=()=>{if(++k===2)res(window.HISN)};sc.onerror=()=>{hP=null;rej()};document.head.appendChild(sc)})});return hP}
+let hC=null;
+const favs=()=>L('fav',[]);
+function favBtn(key){const b=mk('button','fv',favs().includes(key)?'★':'☆');b.setAttribute('aria-label','المفضلة');b.onclick=()=>{let f=favs();if(f.includes(key))f=f.filter(x=>x!==key);else f.push(key);S('fav',f);b.textContent=f.includes(key)?'★':'☆'};return b}
+function dCard(id,txt,tg,ref,fk){
+ const d=mk('div','card');const t=mk('button','t',txt);const r=mk('div','r');const sp=mk('span');sp.dir='ltr';r.appendChild(sp);
+ const upd=()=>{const n=counts[id]||0;sp.textContent=n+' / '+tg+(n>=tg?' ✓':'');d.classList.toggle('done',n>=tg)};upd();
+ t.onclick=()=>{counts[id]=(counts[id]||0)+1;total++;bump();S('c',counts);S('t',total);if(cfg.vib&&navigator.vibrate)navigator.vibrate(15);upd()};
+ const z=mk('button',null,'تصفير');z.onclick=()=>{counts[id]=0;S('c',counts);upd()};
+ const sh=mk('button',null,'نسخ');sh.onclick=async()=>{const x=txt+(ref?'\n'+ref:'');try{if(navigator.share)await navigator.share({text:x});else{await navigator.clipboard.writeText(x);sh.textContent='تم'}}catch(e){}};
+ const rb=mk('span');rb.append(favBtn(fk),sh,z);r.appendChild(rb);d.appendChild(t);if(ref)d.appendChild(mk('div','src',ref));d.appendChild(r);return d}
+const QKEYS=[['الاستيقاظ',0],['الصباح',26],['المساء',27],['بعد الصلاة',24],['النوم',28],['الاستغفار والتوبة',129],['التسبيح والتحميد',130],['دعاء الهم والحزن',34],['دعاء الكرب',35],['المريض والعين',49],['الصلاة على النبي',107]];
+function hisnView(){
+ const w=$('extra');const c=mk('div','card');w.appendChild(c);const body=mk('div');c.appendChild(body);body.appendChild(mk('small',null,'جاري التحميل...'));
+ loadH().then(H=>{body.innerHTML='';
+  if(hC!=null){const ch=H[hC];const bk=mk('button','btn','← الأبواب');bk.onclick=()=>{hC=null;window.scrollTo(0,0);render()};body.appendChild(bk);body.appendChild(mk('h2',null,ch[0]));
+   const box=mk('div');body.appendChild(box);ch[1].forEach((x,i)=>box.appendChild(dCard('h'+hC+'_'+i,x[0],x[2]===undefined?1:x[1]||1,x[2],'h:'+hC+':'+i)));
+   body.appendChild(mk('div','src','المصدر: كتاب حصن المسلم للشيخ سعيد بن علي بن وهف القحطاني، نقلًا من مشروع asellam/HisnElMuslim (رخصة MIT). المراجع تحت كل ذكر من الكتاب نفسه.'));return}
+  const qk=mk('div','qk');QKEYS.forEach(([l,i])=>{const b=mk('button',null,l);b.onclick=()=>{hC=i;window.scrollTo(0,0);render()};qk.appendChild(b)});body.appendChild(qk);
+  const si=mk('input','si');si.type='search';si.placeholder='ابحث في أبواب حصن المسلم';body.appendChild(si);const ls=mk('div');body.appendChild(ls);
+  const draw=()=>{const q=nA(si.value.trim());ls.innerHTML='';H.forEach((ch,i)=>{if(q&&!nA(ch[0]).includes(q))return;const r=mk('button','sl');r.appendChild(mk('i',null,ar(i+1)));r.appendChild(mk('b',null,ch[0]));r.appendChild(mk('small',null,ar(ch[1].length)));r.onclick=()=>{hC=i;window.scrollTo(0,0);render()};ls.appendChild(r)})};si.oninput=draw;draw();
+  body.appendChild(mk('div','src','المصدر: كتاب حصن المسلم للقحطاني، نقلًا من مشروع asellam/HisnElMuslim (رخصة MIT). ١٣٣ بابًا بنصوصها ومراجعها كما في المصدر.'))
+ }).catch(()=>{body.innerHTML='';body.appendChild(mk('small',null,'تعذر تحميل حصن المسلم. تأكد من الإنترنت لأول مرة.'))})
+}
+function namesView(){
+ const w=$('extra');const c=mk('div','card');w.appendChild(c);const nm=L('nmz',{});
+ const cnt=mk('b',null,'');c.appendChild(cnt);c.appendChild(mk('small',null,'اضغط على الاسم لتعليمه كمحفوظ.'));
+ const si=mk('input','si');si.type='search';si.placeholder='ابحث عن اسم';c.appendChild(si);const g=mk('div','nm');c.appendChild(g);
+ const upd=()=>{cnt.textContent='حفظت '+ar(Object.keys(nm).filter(k=>nm[k]).length)+' من ٩٩'};
+ const draw=()=>{const q=nA(si.value.trim());g.innerHTML='';NAMES.forEach((n,i)=>{if(q&&!nA(n).includes(q))return;const b=mk('button',nm[i]?'d':'',n);b.appendChild(mk('small',null,ar(i+1)+(nm[i]?' ✓':'')));b.onclick=()=>{nm[i]=!nm[i];S('nmz',nm);b.classList.toggle('d',!!nm[i]);b.lastChild.textContent=ar(i+1)+(nm[i]?' ✓':'');upd()};g.appendChild(b)})};si.oninput=draw;draw();upd();
+ c.appendChild(mk('div','src','المصدر: أسماء الله الحسنى من مشروع adiman-dev/islamic-json (رخصة MIT).'))
+}
+function favView(){
+ const w=$('extra');const c=mk('div','card');w.appendChild(c);const f=favs();
+ if(!f.length){c.appendChild(mk('div',null,'لا توجد أذكار في المفضلة بعد. اضغط ☆ بجانب أي ذكر في حصن المسلم لإضافته.'));return}
+ const body=mk('div');c.appendChild(body);body.appendChild(mk('small',null,'جاري التحميل...'));
+ loadH().then(H=>{body.innerHTML='';f.forEach(k=>{const [t,a,b]=k.split(':');if(t==='h'){const x=H[+a][1][+b];if(x)body.appendChild(dCard('h'+a+'_'+b,x[0],x[1]||1,x[2],k))}})}).catch(()=>{body.textContent='تعذر التحميل'})
+}
+let QI=null;
+async function buildQI(msg){if(QI)return QI;const o=[];for(let n=1;n<=114;n++){msg('جاري تجهيز البحث في المصحف '+ar(n)+'/١١٤');const ay=await loadQ(n);ay.forEach((t,i)=>o.push([n,i+1,t,nA(t)]))}QI=o;return o}
+function searchView(){
+ const w=$('extra');const c=mk('div','card');w.appendChild(c);
+ const si=mk('input','si');si.type='search';si.placeholder='ابحث في الأذكار، أسماء الله، والقرآن';c.appendChild(si);const st=mk('small',null,'اكتب كلمة (٢ أحرف على الأقل).');c.appendChild(st);const out=mk('div');c.appendChild(out);let tk=0;
+ const run=async()=>{const q=nA(si.value.trim());const my=++tk;out.innerHTML='';if(q.length<2){st.textContent='اكتب كلمة (٢ أحرف على الأقل).';return}
+  st.textContent='جاري البحث...';let H=null;try{H=await loadH()}catch(e){}
+  if(my!==tk)return;let n=0;const sec=t=>out.appendChild(mk('h2',null,t));
+  if(H){const r1=[];H.forEach((ch,i)=>{if(nA(ch[0]).includes(q))r1.push([i,null]);ch[1].forEach((x,j)=>{if(r1.length<60&&nA(x[0]).includes(q))r1.push([i,j])})});
+   if(r1.length){sec('حصن المسلم');r1.slice(0,40).forEach(([i,j])=>{const b=mk('button','rs',j==null?H[i][0]:H[i][1][j][0].slice(0,140));b.appendChild(mk('small',null,'  '+H[i][0]));b.onclick=()=>{hC=i;go('hisn')};out.appendChild(b);n++})}}
+  const r2=NAMES.map((x,i)=>[x,i]).filter(([x])=>nA(x).includes(q));if(r2.length){sec('أسماء الله الحسنى');r2.forEach(([x,i])=>{const b=mk('button','rs',x);b.appendChild(mk('small',null,'  رقم '+ar(i+1)));b.onclick=()=>go('names');out.appendChild(b);n++})}
+  if(my!==tk)return;st.textContent=n?'':'لا نتائج في الأذكار. جاري البحث في المصحف...';
+  try{const I=await buildQI(m=>{if(my===tk)st.textContent=m});if(my!==tk)return;const r3=[];for(const x of I){if(x[3].includes(q)){r3.push(x);if(r3.length>=40)break}}
+   if(r3.length){sec('المصحف');r3.forEach(x=>{const b=mk('button','rs',x[2]);b.appendChild(mk('small',null,'  '+QM[x[0]-1][0]+'، آية '+ar(x[1])));b.onclick=()=>{mS=x[0];mA=x[1];go('mushaf')};out.appendChild(b);n++})}
+   st.textContent=n?'':'لا توجد نتائج.'}catch(e){st.textContent=n?'':'تعذر البحث في المصحف.'}};
+ let tm;si.oninput=()=>{clearTimeout(tm);tm=setTimeout(run,350)};setTimeout(()=>si.focus(),100)
+}
+function drawBN(){const b=$('bn');if(!b)return;b.innerHTML='';[['home','🏠','الرئيسية'],['hisn','📿','الأذكار'],['mushaf','📖','المصحف'],['fav','⭐','المفضلة'],['counter','🔢','السبحة']].forEach(([k,i,l])=>{const x=mk('button',tab===k?'on':null);x.appendChild(mk('i',null,i));x.appendChild(mk('span',null,l));x.onclick=()=>{if(k==='hisn'||k==='mushaf'){if(tab!==k){hC=null;mS=null}}go(k)};b.appendChild(x)})}
 function homeView(){
  const h=$('hero');h.innerHTML='';
- const hb=mk('div','hb');const m=mk('button',null,'☰');m.onclick=openM;const g=mk('button',null,'⚙');g.onclick=()=>go('set');hb.append(m,g);h.appendChild(hb);
+ const hb=mk('div','hb');const m=mk('button',null,'☰');m.onclick=openM;const g=mk('button',null,'⚙');g.onclick=()=>go('set');const sq=mk('button',null,'🔍');sq.onclick=()=>go('search');const fq=mk('button',null,'☆');fq.onclick=()=>go('fav');hb.append(m,g,sq,fq);h.appendChild(hb);
  h.appendChild(mk('div','hv',HV[dayIdx()%HV.length]));
  const ps=mk('button','ps');ps.onclick=()=>go('pray');
  const a=mk('span',null,'الفجر'),b=mk('span',null,'الشروق');
@@ -279,8 +348,8 @@ function homeView(){
  const today=log[dkey()]||0,pc=Math.min(100,Math.round(today));
  const hc=mk('button','hc');const rg=mk('div','ring',pc+'%');rg.style.background='conic-gradient(#e0b070 '+pc*3.6+'deg,rgba(255,255,255,.14) 0)';const ri=mk('span',null,pc+'%');rg.textContent='';ri.style.cssText='background:#2c3846;width:54px;height:54px;border-radius:50%;display:grid;place-items:center';rg.appendChild(ri);
  const tx=mk('div');tx.append(mk('b',null,'متابعة الأذكار'),mk('small',null,'ذكرت اليوم '+today+' من ١٠٠'));hc.append(rg,tx);hc.onclick=()=>go('stats');w.appendChild(hc);
- const gr=mk('div','gr');const cols={mushaf:'#e0b070',salawat:'#e0b070',morning:'#6cc6ff',evening:'#ff7a7a',tasbeeh:'#6ea0ff',pray:'#7fd6c2',qibla:'#c9a0e8',daily:'#f0c36a',stats:'#9ad06a',qa:'#e89ab0',set:'#b4bcc4'};
- sets.filter(x=>x.k!=='home'&&x.k!=='mushaf').forEach(x=>{const c=mk('button',null,x.l);c.style.color=cols[x.k];c.style.borderColor=cols[x.k]+'66';c.onclick=()=>go(x.k);gr.appendChild(c)});w.appendChild(gr);
+ const gr=mk('div','gr');const cols={hisn:'#e0b070',names:'#f0c36a',fav:'#ff8fb0',counter:'#9ad06a',mushaf:'#e0b070',salawat:'#e0b070',morning:'#6cc6ff',evening:'#ff7a7a',tasbeeh:'#6ea0ff',pray:'#7fd6c2',qibla:'#c9a0e8',daily:'#f0c36a',stats:'#9ad06a',qa:'#e89ab0',set:'#b4bcc4'};
+ sets.filter(x=>!['home','mushaf','search'].includes(x.k)).forEach(x=>{const c=mk('button',null,x.l);c.style.color=cols[x.k];c.style.borderColor=cols[x.k]+'66';c.onclick=()=>go(x.k);gr.appendChild(c)});w.appendChild(gr);
  const wd=mk('button','wd','السبحة الحرة والتذكير');wd.onclick=()=>go('salawat');w.appendChild(wd);
  w.appendChild(mk('div','ft','سمير يحيي'));
 }
