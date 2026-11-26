@@ -24,15 +24,23 @@ nav{scrollbar-width:none}
 .qa{display:block;color:#0f5c4a;font-size:.9rem;margin-top:6px}.qs{font-size:1rem;line-height:1.9;margin:6px 0}.warn{background:#fff6dc;border:1px solid #ecd9a0;border-radius:12px;padding:10px 12px;font-size:.9rem;margin-bottom:12px}
 body.fs1{font-size:16px}body.fs3{font-size:21px}
 
+html,body{overflow-x:hidden}#tabs{visibility:hidden}#tabs.open{visibility:visible}.dev{margin-top:auto;padding:14px;text-align:center;font-size:.95rem;opacity:.8}
 body.dark{background:#10161a;color:#e8efe9}body.dark .card{background:#182026;border-color:#2a363d}body.dark nav button{background:#182026;color:#e8efe9;border-color:#2a363d}body.dark nav button.on{background:#2e8f78;border-color:#2e8f78;color:#fff}
 body.dark .big{background:#182026;color:#8ad6bd;border-color:#2e8f78}body.dark .opt button,body.dark .btn{background:#182026;color:#8ad6bd;border-color:#2e8f78}body.dark .opt button.on{background:#2e8f78;color:#fff}
 body.dark .r,body.dark small{color:#9fb0a9}body.dark .r button,body.dark .qa{color:#8ad6bd}body.dark .row{border-color:#2a363d}body.dark .warn{background:#2b2616;border-color:#5a4d22}
 .pt{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e6ebe4}.pt.nx{font-weight:700;color:#0f5c4a}body.dark .pt{border-color:#2a363d}body.dark .pt.nx{color:#8ad6bd}
 .bar{height:10px;border-radius:5px;background:#0f5c4a;margin-top:4px}.num{font-size:2rem;font-weight:700}.arrow{width:160px;height:160px;margin:12px auto;border:3px solid #0f5c4a;border-radius:50%;position:relative}.arrow i{position:absolute;inset:8px 74px 80px;background:#0f5c4a;border-radius:6px}.src{font-size:.8rem;color:#5b6b64;margin-top:8px;line-height:1.6}.ayah{font-size:1.4rem;line-height:2.3}
 select{font:inherit;padding:10px;border-radius:12px;border:1px solid #c9d6cf;background:#fff;color:#23302b;width:100%}body.dark select{background:#182026;color:#e8efe9;border-color:#2a363d}
+
+header{position:relative}#menu{position:absolute;inset-inline-start:10px;top:12px;background:rgba(255,255,255,.15);border:0;color:#fff;font-size:1.5rem;border-radius:10px;width:44px;height:44px}
+#tabs{position:fixed;top:0;bottom:0;inset-inline-start:0;width:75%;max-width:300px;background:#fff;z-index:20;display:flex;flex-direction:column;gap:4px;overflow-y:auto;padding:16px 10px;transform:translateX(100%);transition:transform .2s;box-shadow:-4px 0 18px rgba(0,0,0,.2)}
+#tabs.open{transform:none}#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:10}#ov.open{display:block}
+#tabs button,body.dark #tabs button{border:0;border-radius:12px;text-align:start;padding:12px 14px;width:100%;flex:none;font-size:1.05rem;background:transparent}
+#tabs button.on{background:#0f5c4a;color:#fff}body.dark #tabs{background:#182026}body.dark #tabs button.on{background:#2e8f78}
+#nm{font-size:1.05rem;font-weight:700;margin:2px 0 0;opacity:1}#nm:empty{display:none}
 </style></head><body>
-<header><h1>أذكار وصلاة على النبي</h1><p>إجمالي ما سبحت: <b id="total" dir="ltr">0</b></p></header>
-<nav id="tabs"></nav><main><div id="list"></div><div id="extra"></div>
+<header><button id="menu" aria-label="القائمة">☰</button><h1>أذكار وصلاة على النبي</h1><p id="nm">من تطوير سمير يحيي</p><p>إجمالي ما سبحت: <b id="total" dir="ltr">0</b></p></header>
+<div id="ov"></div><nav id="tabs" aria-label="الأقسام"></nav><main><div id="list"></div><div id="extra"></div>
 <div id="dh"><h2>سبحة حرة</h2><button class="big" id="free" dir="ltr">0</button><div style="text-align:center"><button class="btn" id="freeReset">تصفير السبحة</button></div>
 <h2>التذكير بالصلاة على النبي</h2><div class="opt" id="rem"></div>
 <small id="remNote">التذكير يعمل والتطبيق مفتوح فقط. بعد التثبيت على الشاشة الرئيسية يمكن السماح بالإشعارات.</small></div></main>
@@ -80,7 +88,7 @@ function opts(list,cur,fn){const w=mk('div','opt');list.forEach(([v,l])=>{const 
 function render(){
  document.body.className='fs'+cfg.fs+((cfg.theme==='dark'||(cfg.theme==='auto'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?' dark':'');clearInterval(tick);
  $('total').textContent=total;$('free').textContent=free;
- $('tabs').innerHTML='';sets.forEach(s=>{const b=mk('button',s.k===tab?'on':'',s.l);b.onclick=()=>{tab=s.k;S('tab',tab);render()};$('tabs').appendChild(b)});
+ $('tabs').innerHTML='';sets.forEach(s=>{const b=mk('button',s.k===tab?'on':'',s.l);b.onclick=()=>{tab=s.k;S('tab',tab);closeM();window.scrollTo(0,0);render()};$('tabs').appendChild(b)});$('tabs').appendChild(mk('div','dev','من تطوير سمير يحيي'));
  const set=sets.find(s=>s.k===tab);$('list').innerHTML='';$('extra').innerHTML='';
  const isD=!!set.i;$('dh').style.display=isD?'':'none';
  if(isD){
@@ -152,10 +160,12 @@ function render(){
   row('نطق التذكير بصوت',toggle(cfg.speakRem,()=>{cfg.speakRem=!cfg.speakRem;sv();render()}),'قد يمنعه الآيفون إذا لم تضغط على الشاشة قبلها');
   const rs=mk('button','btn','مسح كل العدّادات');rs.onclick=()=>{if(rs.dataset.s){counts={};total=0;free=0;log={};S('log',log);S('c',counts);S('t',0);S('f',0);render()}else{rs.dataset.s=1;rs.textContent='اضغط مرة أخرى للتأكيد'}};
   row('مسح البيانات',rs);
-  const shb=mk('button','btn','شارك التطبيق');shb.onclick=()=>share(shb);row('مشاركة التطبيق',shb);
+  const shb=mk('button','btn','شارك التطبيق');shb.onclick=()=>share(shb);row('مشاركة التطبيق',shb);row('من تطوير',mk('b',null,'سمير يحيي'));
   w.appendChild(c);
  }
 }
+const openM=()=>{$('tabs').classList.add('open');$('ov').classList.add('open')},closeM=()=>{$('tabs').classList.remove('open');$('ov').classList.remove('open')};
+$('menu').onclick=openM;$('ov').onclick=closeM;
 $('free').onclick=()=>{free++;bump();S('f',free);render()};$('freeReset').onclick=()=>{free=0;S('f',0);render()};
 const phr=['اللهم صلِّ على محمد وعلى آل محمد','صلى الله على سيدنا محمد','اللهم صلِّ وسلِّم وبارك على سيدنا محمد'];let timer;
 async function notify(){const t=phr[Math.floor(Math.random()*phr.length)];if(cfg.speakRem)say(t);
