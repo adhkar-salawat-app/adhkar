@@ -377,5 +377,5 @@ async function setEvery(m){every=m;S('every',m);clearInterval(timer);
  if(m){try{if('Notification' in window&&Notification.permission==='default')await Notification.requestPermission();}catch(e){}
   timer=setInterval(notify,m*60000);}render()}
 if(every)setEvery(every);else render();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator)(()=>{const had=!!navigator.serviceWorker.controller;let rl=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!rl){rl=true;location.reload()}});navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{})})();
 </script></body></html>
