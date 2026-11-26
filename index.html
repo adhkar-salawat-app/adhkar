@@ -216,7 +216,7 @@ function render(){
    if(L('psub',null)){const code=pushCode();const ta=mk('textarea');ta.readOnly=true;ta.value=code;ta.style.cssText='width:100%;height:90px;font-size:12px;direction:ltr;margin-top:6px';
     const cp=mk('button','btn','نسخ كود التفعيل');cp.onclick=async()=>{try{await navigator.clipboard.writeText(code);cp.textContent='تم النسخ'}catch(e){ta.select();document.execCommand('copy');cp.textContent='تم النسخ'}};
     const sh=mk('button','btn','مشاركة الكود');sh.style.marginInlineStart='8px';sh.onclick=()=>{if(navigator.share)navigator.share({text:code}).catch(()=>{});else cp.click()};
-    const bx=mk('div');bx.append(mk('small',null,'ابعت هذا الكود لمساعدك في المحادثة لإكمال التفعيل. بعد تغيير الأوقات أو المدينة ابعت كودًا جديدًا.'),ta,cp,sh);c.appendChild(bx)}}
+    const bx=mk('div');bx.append(mk('small',null,'انسخ الكود واحفظه في الرابط الآمن اللي هيتبعتلك، لا ترسله في المحادثة. بعد تغيير الأوقات أو المدينة احفظ كودًا جديدًا.'),ta,cp,sh);c.appendChild(bx)}}
   const rs=mk('button','btn','مسح كل العدّادات');rs.onclick=()=>{if(rs.dataset.s){counts={};total=0;free=0;log={};S('log',log);S('c',counts);S('t',0);S('f',0);render()}else{rs.dataset.s=1;rs.textContent='اضغط مرة أخرى للتأكيد'}};
   row('مسح البيانات',rs);
   const shb=mk('button','btn','شارك التطبيق');shb.onclick=()=>share(shb);row('مشاركة التطبيق',shb);row('سمير يحيي',mk('span',null,''));
