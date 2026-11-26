@@ -1,4 +1,4 @@
-const C='adhkar-v4';
+const C='adhkar-v5';
 const A=['./','./index.html','./manifest.webmanifest','./aud1.js','./aud2.js','./aud3.js','./aud4.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(A)));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim();});
