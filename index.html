@@ -23,6 +23,13 @@ nav{scrollbar-width:none}
 .spk{border:0;background:none;font-size:1.3rem;padding:6px 10px}
 .qa{display:block;color:#0f5c4a;font-size:.9rem;margin-top:6px}.qs{font-size:1rem;line-height:1.9;margin:6px 0}.warn{background:#fff6dc;border:1px solid #ecd9a0;border-radius:12px;padding:10px 12px;font-size:.9rem;margin-bottom:12px}
 body.fs1{font-size:16px}body.fs3{font-size:21px}
+
+body.dark{background:#10161a;color:#e8efe9}body.dark .card{background:#182026;border-color:#2a363d}body.dark nav button{background:#182026;color:#e8efe9;border-color:#2a363d}body.dark nav button.on{background:#2e8f78;border-color:#2e8f78;color:#fff}
+body.dark .big{background:#182026;color:#8ad6bd;border-color:#2e8f78}body.dark .opt button,body.dark .btn{background:#182026;color:#8ad6bd;border-color:#2e8f78}body.dark .opt button.on{background:#2e8f78;color:#fff}
+body.dark .r,body.dark small{color:#9fb0a9}body.dark .r button,body.dark .qa{color:#8ad6bd}body.dark .row{border-color:#2a363d}body.dark .warn{background:#2b2616;border-color:#5a4d22}
+.pt{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e6ebe4}.pt.nx{font-weight:700;color:#0f5c4a}body.dark .pt{border-color:#2a363d}body.dark .pt.nx{color:#8ad6bd}
+.bar{height:10px;border-radius:5px;background:#0f5c4a;margin-top:4px}.num{font-size:2rem;font-weight:700}.arrow{width:160px;height:160px;margin:12px auto;border:3px solid #0f5c4a;border-radius:50%;position:relative}.arrow i{position:absolute;inset:8px 74px 80px;background:#0f5c4a;border-radius:6px}.src{font-size:.8rem;color:#5b6b64;margin-top:8px;line-height:1.6}.ayah{font-size:1.4rem;line-height:2.3}
+select{font:inherit;padding:10px;border-radius:12px;border:1px solid #c9d6cf;background:#fff;color:#23302b;width:100%}body.dark select{background:#182026;color:#e8efe9;border-color:#2a363d}
 </style></head><body>
 <header><h1>أذكار وصلاة على النبي</h1><p>إجمالي ما سبحت: <b id="total" dir="ltr">0</b></p></header>
 <nav id="tabs"></nav><main><div id="list"></div><div id="extra"></div>
@@ -35,7 +42,7 @@ const sets=[
 {k:'morning',l:'أذكار الصباح',i:[['أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['سبحان الله وبحمده',100],['لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير',10],['أستغفر الله وأتوب إليه',100]]},
 {k:'evening',l:'أذكار المساء',i:[['أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['أعوذ بكلمات الله التامات من شر ما خلق',3],['بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم',3],['حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم',7]]},
 {k:'tasbeeh',l:'التسبيح بعد الصلاة',i:[['سبحان الله',33],['الحمد لله',33],['الله أكبر',34]]},
-{k:'qa',l:'أسئلة دينية'},{k:'set',l:'الإعدادات'}];
+{k:'pray',l:'مواقيت الصلاة'},{k:'qibla',l:'القبلة'},{k:'daily',l:'آية وحديث اليوم'},{k:'stats',l:'إحصائياتي'},{k:'qa',l:'أسئلة دينية'},{k:'set',l:'الإعدادات'}];
 const QA=[
 ['هل يجوز استخدام السبحة أو أي وسيلة لعدّ الأذكار؟','نعم، الذكر بالسبحة أو أي وسيلة للعدّ جائز وفعله السلف دون إنكار، بحسب دار الإفتاء المصرية.','https://www.dar-alifta.org/en/fatwa/details/1310/prayer-beads'],
 ['هل يجوز الذكر والتسبيح لمن عليه جنابة أو للحائض؟','يجوز الذكر والتسبيح بدون تلاوة القرآن، بحسب دار الإفتاء المصرية.','https://www.dar-alifta.org/en/fatwa/details/22057/making-remembrance-of-allah-almighty-while-in-a-state-of-major-ritual-impurity'],
@@ -45,7 +52,23 @@ const QA=[
 ['كيف أتوضأ؟','شرح خطوات الوضوء من دار الإفتاء (بالإنجليزية).','https://www.dar-alifta.org/en/article/details/249/how-to-perform-wudhu-ablution']];
 const L=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v===null?d:v}catch(e){return d}},S=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let counts=L('c',{}),total=L('t',0),free=L('f',0),tab=L('tab','salawat'),every=L('every',0);
-let cfg=Object.assign({speak:false,rate:0.85,fs:2,vib:true,speakRem:false},L('cfg',{}));
+let cfg=Object.assign({speak:false,rate:0.85,fs:2,vib:true,speakRem:false,theme:'auto'},L('cfg',{}));
+let log=L('log',{}),place=L('place',null);
+const pad=n=>String(n).padStart(2,'0');
+const dkey=(d=new Date())=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+function bump(){const k=dkey();log[k]=(log[k]||0)+1;S('log',log)}
+const CITIES=[['القاهرة',30.0444,31.2357],['الجيزة',30.0131,31.2089],['الإسكندرية',31.2001,29.9187],['طنطا',30.7865,31.0004],['المنصورة',31.0409,31.3785],['الزقازيق',30.5877,31.502],['بورسعيد',31.2653,32.3019],['السويس',29.9668,32.5498],['الإسماعيلية',30.5965,32.2715],['دمنهور',31.0341,30.4682],['كفر الشيخ',31.1107,30.9388],['شبين الكوم',30.5524,31.0126],['بنها',30.466,31.1848],['دمياط',31.4165,31.8133],['الفيوم',29.3084,30.8428],['بني سويف',29.0661,31.0994],['المنيا',28.1099,30.7503],['أسيوط',27.1783,31.1859],['سوهاج',26.5591,31.6948],['قنا',26.1551,32.716],['الأقصر',25.6872,32.6396],['أسوان',24.0889,32.8998],['الغردقة',27.2579,33.8116]];
+const PN=[['Fajr','الفجر'],['Sunrise','الشروق'],['Dhuhr','الظهر'],['Asr','العصر'],['Maghrib','المغرب'],['Isha','العشاء']];
+const VERSES=['2:152','2:153','2:186','2:255','2:286','3:159','3:173','13:28','14:7','16:128','33:56','40:60','65:3','94:5','94:6'];
+const dayIdx=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/864e5);
+function qiblaDeg(la,lo){const r=x=>x*Math.PI/180,a=r(la),b=r(21.4225),d=r(39.8262-lo);return (Math.atan2(Math.sin(d),Math.cos(a)*Math.tan(b)-Math.sin(a)*Math.cos(d))*180/Math.PI+360)%360}
+async function getTimes(p){const k=dkey()+'|'+p.lat+'|'+p.lon;const c=L('pt',null);if(c&&c.k===k)return c.t;
+ const d=new Date(),ds=pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear();
+ const r=await fetch('https://api.aladhan.com/v1/timings/'+ds+'?latitude='+p.lat+'&longitude='+p.lon+'&method=5');const j=await r.json();const t=j.data.timings;S('pt',{k,t});return t}
+function nextPrayer(t){const n=new Date(),m=n.getHours()*60+n.getMinutes();for(const [k] of PN){if(k==='Sunrise')continue;const [h,mi]=t[k].split(':').map(Number);if(h*60+mi>m)return [k,h*60+mi-m]}return ['Fajr',null]}
+function share(btn){const d={title:'أذكار وصلاة على النبي',text:'تطبيق أذكار وصلاة على النبي، مجاني',url:'https://adhkar-salawat-app.github.io/adhkar/'};
+ if(navigator.share)navigator.share(d).catch(()=>{});else if(navigator.clipboard){navigator.clipboard.writeText(d.url);btn.textContent='تم نسخ الرابط'}}
+let tick;
 const $=id=>document.getElementById(id);
 const sv=()=>S('cfg',cfg);
 function arVoice(){const v=window.speechSynthesis?speechSynthesis.getVoices():[];return v.find(x=>/^ar(-|_|$)/i.test(x.lang))||null}
@@ -55,19 +78,61 @@ function mk(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=
 function toggle(on,fn){const b=mk('button','sw'+(on?' on':''));b.setAttribute('role','switch');b.setAttribute('aria-checked',on);b.onclick=fn;return b}
 function opts(list,cur,fn){const w=mk('div','opt');list.forEach(([v,l])=>{const b=mk('button',cur===v?'on':'',l);b.onclick=()=>fn(v);w.appendChild(b)});return w}
 function render(){
- document.body.className='fs'+cfg.fs;
+ document.body.className='fs'+cfg.fs+((cfg.theme==='dark'||(cfg.theme==='auto'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?' dark':'');clearInterval(tick);
  $('total').textContent=total;$('free').textContent=free;
  $('tabs').innerHTML='';sets.forEach(s=>{const b=mk('button',s.k===tab?'on':'',s.l);b.onclick=()=>{tab=s.k;S('tab',tab);render()};$('tabs').appendChild(b)});
  const set=sets.find(s=>s.k===tab);$('list').innerHTML='';$('extra').innerHTML='';
  const isD=!!set.i;$('dh').style.display=isD?'':'none';
  if(isD){
  set.i.forEach(([txt,tg],idx)=>{const id=set.k+idx,n=counts[id]||0;const d=mk('div','card'+(n>=tg?' done':''));
-  const t=mk('button','t',txt);t.onclick=()=>{counts[id]=n+1;total++;S('c',counts);S('t',total);if(cfg.vib&&navigator.vibrate)navigator.vibrate(15);if(cfg.speak)say(txt);render()};
+  const t=mk('button','t',txt);t.onclick=()=>{counts[id]=n+1;total++;bump();S('c',counts);S('t',total);if(cfg.vib&&navigator.vibrate)navigator.vibrate(15);if(cfg.speak)say(txt);render()};
   const r=mk('div','r');const sp=mk('span',null,n+' / '+tg+(n>=tg?' ✓':''));sp.dir='ltr';r.appendChild(sp);
   const k=mk('button','spk','🔊');k.setAttribute('aria-label','استماع');k.onclick=()=>say(txt);
   const z=mk('button',null,'تصفير');z.onclick=()=>{counts[id]=0;S('c',counts);render()};
   const rb=mk('span');rb.append(k,z);r.appendChild(rb);d.append(t,r);$('list').appendChild(d)});
  $('rem').innerHTML='';[[0,'بدون'],[15,'كل ١٥ دقيقة'],[30,'كل ٣٠ دقيقة'],[60,'كل ساعة']].forEach(([m,l])=>{const b=mk('button',every===m?'on':'',l);b.onclick=()=>setEvery(m);$('rem').appendChild(b)});
+ }else if(tab==='pray'){
+  const w=$('extra'),c=mk('div','card');w.appendChild(c);
+  const sel=mk('select');const o0=mk('option',null,'اختر مدينتك');o0.value='';sel.appendChild(o0);CITIES.forEach(([n],i)=>{const o=mk('option',null,n);o.value=i;if(place&&place.name===n)o.selected=true;sel.appendChild(o)});
+  sel.onchange=()=>{if(sel.value==='')return;const [n,la,lo]=CITIES[sel.value];place={name:n,lat:la,lon:lo};S('place',place);render()};
+  c.appendChild(sel);
+  const g=mk('button','btn','استخدم موقعي الحالي');g.style.marginTop='10px';g.onclick=()=>{if(!navigator.geolocation){g.textContent='الموقع غير متاح';return}g.textContent='جاري تحديد الموقع...';navigator.geolocation.getCurrentPosition(p=>{place={name:'موقعي',lat:+p.coords.latitude.toFixed(4),lon:+p.coords.longitude.toFixed(4)};S('place',place);render()},()=>{g.textContent='لم يتم السماح بالموقع، اختر مدينتك'},{timeout:15000})};c.appendChild(g);
+  const box=mk('div');box.style.marginTop='12px';c.appendChild(box);
+  if(!place)box.appendChild(mk('small',null,'اختر المدينة لعرض المواقيت.'));
+  else{box.appendChild(mk('b',null,'المواقيت: '+place.name));const lst=mk('div');box.appendChild(lst);lst.appendChild(mk('small',null,'جاري التحميل...'));
+   getTimes(place).then(t=>{const draw=()=>{lst.innerHTML='';const [nk,left]=nextPrayer(t);PN.forEach(([k,n])=>{const r=mk('div','pt'+(k===nk?' nx':''));r.appendChild(mk('span',null,n));const s=mk('span',null,t[k].slice(0,5));s.dir='ltr';r.appendChild(s);lst.appendChild(r)});
+     const nm=PN.find(x=>x[0]===nk)[1];lst.appendChild(mk('small',null,left==null?'القادم: '+nm+' (غدًا)':'القادم: '+nm+' بعد '+Math.floor(left/60)+' ساعة و'+left%60+' دقيقة'))};draw();tick=setInterval(draw,30000)}).catch(()=>{lst.innerHTML='';lst.appendChild(mk('small',null,'تعذر تحميل المواقيت، تأكد من الإنترنت.'))});}
+  c.appendChild(mk('div','src','المصدر: aladhan.com، طريقة الحساب: الهيئة المصرية العامة للمساحة. قد تختلف دقائق قليلة عن مسجدك، اعتمد تقويم بلدك.'));
+ }else if(tab==='qibla'){
+  const w=$('extra'),c=mk('div','card');w.appendChild(c);
+  if(!place){c.appendChild(mk('div',null,'اختر مدينتك أو موقعك من تبويب مواقيت الصلاة أولًا.'))}
+  else{const deg=qiblaDeg(place.lat,place.lon);c.appendChild(mk('b',null,'القبلة من '+place.name));const n=mk('div','num',Math.round(deg)+'° من الشمال (باتجاه عقارب الساعة)');n.dir='ltr';c.appendChild(n);
+   const ar=mk('div','arrow');const i=mk('i');ar.appendChild(i);c.appendChild(ar);const st=mk('small',null,'السهم يشير للشمال حتى تفعّل البوصلة. اضغط الزر وسمح بالحركة والاتجاه.');
+   const b=mk('button','btn','تشغيل البوصلة');b.onclick=async()=>{try{if(window.DeviceOrientationEvent&&DeviceOrientationEvent.requestPermission){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted'){st.textContent='لم يتم السماح بالبوصلة';return}}
+     const on=e=>{let hd=e.webkitCompassHeading;if(hd==null&&e.alpha!=null)hd=(360-e.alpha)%360;if(hd==null)return;ar.style.transform='rotate('+(deg-hd)+'deg)';st.textContent='دوّر الهاتف حتى يشير السهم لأعلى. ابعد عن المعادن وحرّك الهاتف على شكل 8 للمعايرة.'};
+     window.addEventListener('deviceorientationabsolute',on,true);window.addEventListener('deviceorientation',on,true)}catch(e){st.textContent='البوصلة غير متاحة على هذا الجهاز'}};
+   c.append(b,st);c.appendChild(mk('div','src','الحساب محلي من إحداثيات الكعبة (٢١.٤٢٢٥، ٣٩.٨٢٦٢) وموقعك. للتأكد قارنه بسجادة أو مسجد قريب.'))}
+ }else if(tab==='daily'){
+  const w=$('extra'),a=mk('div','card'),b=mk('div','card');w.append(a,b);a.appendChild(mk('b',null,'آية اليوم'));b.appendChild(mk('b',null,'حديث اليوم'));
+  const av=mk('div','ayah','...');a.appendChild(av);const as=mk('div','src');a.appendChild(as);const bv=mk('div','qs','...');b.appendChild(bv);const bs=mk('div','src');b.appendChild(bs);
+  const dk=dkey();let dv=L('dv',null);
+  const showV=x=>{av.textContent=x.text;as.textContent='سورة '+x.sur+'، آية '+x.n+'. المصدر: api.alquran.cloud (الرسم العثماني)'};
+  const showH=x=>{bv.textContent=x.text;bs.textContent='الأربعون النووية للإمام النووي، حديث رقم '+x.n+'. المصدر: hadith-api (fawazahmed0). راجع شرح العلماء.'};
+  if(dv&&dv.d===dk){showV(dv.v);showH(dv.h)}else{
+   const ref=VERSES[dayIdx()%VERSES.length],hn=dayIdx()%42+1;
+   Promise.all([fetch('https://api.alquran.cloud/v1/ayah/'+ref+'/quran-uthmani').then(r=>r.json()),fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/ara-nawawi/'+hn+'.json').then(r=>r.json())]).then(([q,hd])=>{
+    const v={text:q.data.text,sur:q.data.surah.name.replace('سُورَةُ ','').replace('سورة ',''),n:q.data.numberInSurah},h={text:hd.hadiths[0].text,n:hn};S('dv',{d:dk,v,h});showV(v);showH(h)}).catch(()=>{if(dv){showV(dv.v);showH(dv.h)}else{av.textContent='تعذر التحميل، تأكد من الإنترنت.';bv.textContent=''}})}
+ }else if(tab==='stats'){
+  const w=$('extra'),c=mk('div','card');w.appendChild(c);const t=log[dkey()]||0;
+  const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push([dkey(d),d.getDay()])}
+  let streak=0;{const d=new Date();if(!(log[dkey(d)]>0))d.setDate(d.getDate()-1);while(log[dkey(d)]>0){streak++;d.setDate(d.getDate()-1)}}
+  let best=0,cur=0,prev=null;Object.keys(log).filter(k=>log[k]>0).sort().forEach(k=>{const dt=new Date(k+'T00:00:00');cur=(prev&&Math.round((dt-prev)/864e5)===1)?cur+1:1;best=Math.max(best,cur);prev=dt});
+  const stat=(l,v)=>{const r=mk('div','row');r.appendChild(mk('span',null,l));r.appendChild(mk('span','num',String(v)));c.appendChild(r)};
+  stat('اليوم',t);stat('الإجمالي',total);stat('أيام متتالية الآن',streak);stat('أفضل سلسلة',best);
+  const mx=Math.max(1,...days.map(([k])=>log[k]||0));const dn=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+  c.appendChild(mk('h2',null,'آخر ٧ أيام'));days.forEach(([k,wd])=>{const v=log[k]||0;const r=mk('div');r.appendChild(mk('small',null,dn[wd]+': '+v));const bar=mk('div','bar');bar.style.width=(v/mx*100)+'%';bar.style.minWidth=v?'4px':'0';r.appendChild(bar);c.appendChild(r)});
+  c.appendChild(mk('div','src','الإحصائيات محفوظة على جهازك فقط، وتبدأ من تحديث اليوم.'));
+  const sh=mk('button','btn','شارك التطبيق');sh.style.marginTop='12px';sh.onclick=()=>share(sh);c.appendChild(sh);
  }else if(tab==='qa'){
   const w=$('extra');w.appendChild(mk('div','warn','هذه أسئلة شائعة مع ملخصات قصيرة ورابط الفتوى الكاملة من دار الإفتاء المصرية. التطبيق لا يفتي ولا يولّد إجابات. لحالتك الخاصة اسأل أهل العلم.'));
   QA.forEach(([q,a,u])=>{const c=mk('div','card');c.appendChild(mk('b',null,q));c.appendChild(mk('div','qs',a));const l=mk('a','qa','الفتوى الكاملة على موقع دار الإفتاء');l.href=u;l.target='_blank';l.rel='noopener';c.appendChild(l);w.appendChild(c)});
@@ -75,6 +140,7 @@ function render(){
  }else{
   const w=$('extra');const c=mk('div','card');
   const row=(lab,ctl,sub)=>{const r=mk('div','row');const a=mk('div');a.appendChild(mk('div',null,lab));if(sub)a.appendChild(mk('small',null,sub));r.append(a,ctl);c.appendChild(r)};
+  row('المظهر',opts([['auto','تلقائي'],['light','فاتح'],['dark','داكن']],cfg.theme,x=>{cfg.theme=x;sv();render()}));
   row('نطق الذكر بصوت عند الضغط',toggle(cfg.speak,()=>{cfg.speak=!cfg.speak;sv();render()}));
   const v=arVoice();
   row('سرعة الصوت',opts([[0.7,'بطيء'],[0.85,'عادي'],[1,'سريع']],cfg.rate,x=>{cfg.rate=x;sv();render()}));
@@ -84,12 +150,13 @@ function render(){
   row('اهتزاز عند الضغط',toggle(cfg.vib,()=>{cfg.vib=!cfg.vib;sv();render()}),'الآيفون لا يدعم الاهتزاز من المتصفح');
   row('التذكير',opts([[0,'بدون'],[15,'١٥ د'],[30,'٣٠ د'],[60,'ساعة']],every,x=>setEvery(x)),'يعمل والتطبيق مفتوح فقط');
   row('نطق التذكير بصوت',toggle(cfg.speakRem,()=>{cfg.speakRem=!cfg.speakRem;sv();render()}),'قد يمنعه الآيفون إذا لم تضغط على الشاشة قبلها');
-  const rs=mk('button','btn','مسح كل العدّادات');rs.onclick=()=>{if(rs.dataset.s){counts={};total=0;free=0;S('c',counts);S('t',0);S('f',0);render()}else{rs.dataset.s=1;rs.textContent='اضغط مرة أخرى للتأكيد'}};
+  const rs=mk('button','btn','مسح كل العدّادات');rs.onclick=()=>{if(rs.dataset.s){counts={};total=0;free=0;log={};S('log',log);S('c',counts);S('t',0);S('f',0);render()}else{rs.dataset.s=1;rs.textContent='اضغط مرة أخرى للتأكيد'}};
   row('مسح البيانات',rs);
+  const shb=mk('button','btn','شارك التطبيق');shb.onclick=()=>share(shb);row('مشاركة التطبيق',shb);
   w.appendChild(c);
  }
 }
-$('free').onclick=()=>{free++;S('f',free);render()};$('freeReset').onclick=()=>{free=0;S('f',0);render()};
+$('free').onclick=()=>{free++;bump();S('f',free);render()};$('freeReset').onclick=()=>{free=0;S('f',0);render()};
 const phr=['اللهم صلِّ على محمد وعلى آل محمد','صلى الله على سيدنا محمد','اللهم صلِّ وسلِّم وبارك على سيدنا محمد'];let timer;
 async function notify(){const t=phr[Math.floor(Math.random()*phr.length)];if(cfg.speakRem)say(t);
  try{if(Notification.permission==='granted'){const r=await navigator.serviceWorker.ready;r.showNotification('صلِّ على النبي',{body:t,icon:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQMAAABoEv5EAAAABlBMVEXz6cYPXErL2DvnAAACN0lEQVR42u1WO5KdMBBsPlVL4DKEL1uO4BssR/INnnwDH4kj+AgKN9S6HLBVmHYgiRkJnsF24gACQGpNjz49oymI/afEBVzABVwAgC/JKK6PBZ6kVUguKQBwh+odAPod4HV9eXtqJsW1WvwE7gswbGY1oSUdnmO7FBefgY/KSRwxVvImyRVAS5IOORXxCQA+wGRUc/jBS0blAvnYZlSu9t9+yhZob/57mzNgDNtXL5lz3P13Qep8kfXcU+dVZBhTH0sdgX5MgFlEYBNgamJ/59LpdhFoUh9uVUE9JYBdj7ScDyQaFma0BPXKCwFMJoZ9tWt8MKfio5aeXgOLHjtqi0b6O20xawurLTrpb05Frd/RN2/ntEUPAF+/65l7gb6QpG/MrdorF4JtEN5ANfg5W+lRs5qi3xxwkeV09rHp1vg4IkkDFCRZnTnah/IZ/cJ962+p/hfAxIT5T1S98cdbAmCdW/SJ6M/46BLRl4mauw0wem32EkSlREEVgqnZODfF5mjdM0m6liQnLWpv3ToVXUfrcIm2Baj12D7JiYnoBUg8DafS68PU9wcZ7mGyLJN8p7Lg0ZbEy0EujJivbATmLF+5bA/XnLhulutOpdf1cpALo5TKQO/tby7IaGHCQpYik+gQFjKXGdCHKuK1zoAuTMs2R6WBUA5+1vl0H5YfGH8AwLdqU8lY3MlFarLjoqjGm2EnJdlx4eWl+bQTzrf1lVE9LAdhNZOuLGmUtHVleZXnF3ABFxCeXzYfNl0d4k+TAAAAAElFTkSuQmCC',lang:'ar',dir:'rtl'});}}catch(e){}}
