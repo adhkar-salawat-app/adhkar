@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>أذكار وصلاة على النبي</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f5c4a">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQMAAABoEv5EAAAABlBMVEXz6cYPXErL2DvnAAACN0lEQVR42u1WO5KdMBBsPlVL4DKEL1uO4BssR/INnnwDH4kj+AgKN9S6HLBVmHYgiRkJnsF24gACQGpNjz49oymI/afEBVzABVwAgC/JKK6PBZ6kVUguKQBwh+odAPod4HV9eXtqJsW1WvwE7gswbGY1oSUdnmO7FBefgY/KSRwxVvImyRVAS5IOORXxCQA+wGRUc/jBS0blAvnYZlSu9t9+yhZob/57mzNgDNtXL5lz3P13Qep8kfXcU+dVZBhTH0sdgX5MgFlEYBNgamJ/59LpdhFoUh9uVUE9JYBdj7ScDyQaFma0BPXKCwFMJoZ9tWt8MKfio5aeXgOLHjtqi0b6O20xawurLTrpb05Frd/RN2/ntEUPAF+/65l7gb6QpG/MrdorF4JtEN5ANfg5W+lRs5qi3xxwkeV09rHp1vg4IkkDFCRZnTnah/IZ/cJ962+p/hfAxIT5T1S98cdbAmCdW/SJ6M/46BLRl4mauw0wem32EkSlREEVgqnZODfF5mjdM0m6liQnLWpv3ToVXUfrcIm2Baj12D7JiYnoBUg8DafS68PU9wcZ7mGyLJN8p7Lg0ZbEy0EujJivbATmLF+5bA/XnLhulutOpdf1cpALo5TKQO/tby7IaGHCQpYik+gQFjKXGdCHKuK1zoAuTMs2R6WBUA5+1vl0H5YfGH8AwLdqU8lY3MlFarLjoqjGm2EnJdlx4eWl+bQTzrf1lVE9LAdhNZOuLGmUtHVleZXnF3ABFxCeXzYfNl0d4k+TAAAAAElFTkSuQmCC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fbf8ef;color:#23302b;font:18px/1.8 system-ui,"Noto Sans Arabic",sans-serif}
+header{background:#0f5c4a;color:#fff;padding:18px 16px;text-align:center}header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px 12px 4px}nav button{flex:none;border:1px solid #c9d6cf;background:#fff;border-radius:999px;padding:10px 16px;font:inherit;font-size:.95rem;color:#23302b}nav button.on{background:#0f5c4a;color:#fff;border-color:#0f5c4a}
+main{padding:12px;max-width:640px;margin:auto}.card{background:#fff;border:1px solid #e1e6df;border-radius:16px;padding:14px;margin-bottom:12px}.card.done{opacity:.55}
+.t{display:block;width:100%;text-align:start;background:none;border:0;font:inherit;font-size:1.15rem;line-height:2;padding:4px 0;color:inherit}
+.r{display:flex;justify-content:space-between;align-items:center;color:#5b6b64;font-size:.95rem}.r button{border:0;background:none;color:#0f5c4a;font:inherit;padding:8px}
+.big{display:block;margin:12px auto;width:200px;height:200px;border-radius:50%;border:3px solid #0f5c4a;background:#fff;font:inherit;font-size:3.5rem;color:#0f5c4a}.big:active{transform:scale(.97)}
+h2{font-size:1.05rem;margin:18px 4px 8px}.opt{display:flex;gap:8px;flex-wrap:wrap}.opt button,.btn{border:1px solid #0f5c4a;background:#fff;color:#0f5c4a;border-radius:12px;padding:10px 14px;font:inherit;font-size:.95rem}.opt button.on{background:#0f5c4a;color:#fff}
+small{display:block;color:#5b6b64;margin-top:8px;font-size:.85rem;line-height:1.6}
+</style></head><body>
+<header><h1>أذكار وصلاة على النبي</h1><p>إجمالي ما سبحت: <b id="total" dir="ltr">0</b></p></header>
+<nav id="tabs"></nav><main><div id="list"></div>
+<h2>سبحة حرة</h2><button class="big" id="free" dir="ltr">0</button><div style="text-align:center"><button class="btn" id="freeReset">تصفير السبحة</button></div>
+<h2>التذكير بالصلاة على النبي</h2><div class="opt" id="rem"></div>
+<small id="remNote">التذكير يعمل والتطبيق مفتوح. بعد التثبيت على الشاشة الرئيسية يمكن السماح بالإشعارات.</small></main>
+<script>
+const sets=[
+{k:'salawat',l:'الصلاة على النبي',i:[['اللهم صلِّ على محمد وعلى آل محمد',100],['صلى الله على سيدنا محمد',100],['اللهم صلِّ وسلِّم وبارك على سيدنا محمد',100]]},
+{k:'morning',l:'أذكار الصباح',i:[['أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['سبحان الله وبحمده',100],['لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير',10],['أستغفر الله وأتوب إليه',100]]},
+{k:'evening',l:'أذكار المساء',i:[['أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['أعوذ بكلمات الله التامات من شر ما خلق',3],['بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم',3],['حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم',7]]},
+{k:'tasbeeh',l:'التسبيح بعد الصلاة',i:[['سبحان الله',33],['الحمد لله',33],['الله أكبر',34]]}];
+const L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},S=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+let counts=L('c',{}),total=L('t',0),free=L('f',0),tab=L('tab','salawat'),every=L('every',0);
+const $=id=>document.getElementById(id);
+function render(){
+ $('total').textContent=total;$('free').textContent=free;
+ $('tabs').innerHTML='';sets.forEach(s=>{const b=document.createElement('button');b.textContent=s.l;b.className=s.k===tab?'on':'';b.onclick=()=>{tab=s.k;S('tab',tab);render()};$('tabs').appendChild(b)});
+ const set=sets.find(s=>s.k===tab);$('list').innerHTML='';
+ set.i.forEach(([txt,tg],idx)=>{const id=set.k+idx,n=counts[id]||0;const d=document.createElement('div');d.className='card'+(n>=tg?' done':'');
+  const t=document.createElement('button');t.className='t';t.textContent=txt;t.onclick=()=>{counts[id]=n+1;total++;S('c',counts);S('t',total);if(navigator.vibrate)navigator.vibrate(15);render()};
+  const r=document.createElement('div');r.className='r';r.innerHTML='<span dir="ltr">'+n+' / '+tg+(n>=tg?' ✓':'')+'</span>';
+  const z=document.createElement('button');z.textContent='تصفير';z.onclick=()=>{counts[id]=0;S('c',counts);render()};r.appendChild(z);d.append(t,r);$('list').appendChild(d)});
+ $('rem').innerHTML='';[[0,'بدون'],[15,'كل ١٥ دقيقة'],[30,'كل ٣٠ دقيقة'],[60,'كل ساعة']].forEach(([m,l])=>{const b=document.createElement('button');b.textContent=l;b.className=every===m?'on':'';b.onclick=()=>setEvery(m);$('rem').appendChild(b)});
+}
+$('free').onclick=()=>{free++;S('f',free);render()};$('freeReset').onclick=()=>{free=0;S('f',0);render()};
+const phr=['اللهم صلِّ على محمد وعلى آل محمد','صلى الله على سيدنا محمد','اللهم صلِّ وسلِّم وبارك على سيدنا محمد'];let timer;
+async function notify(){const t=phr[Math.floor(Math.random()*phr.length)];
+ try{if(Notification.permission==='granted'){const r=await navigator.serviceWorker.ready;r.showNotification('صلِّ على النبي',{body:t,icon:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQMAAABoEv5EAAAABlBMVEXz6cYPXErL2DvnAAACN0lEQVR42u1WO5KdMBBsPlVL4DKEL1uO4BssR/INnnwDH4kj+AgKN9S6HLBVmHYgiRkJnsF24gACQGpNjz49oymI/afEBVzABVwAgC/JKK6PBZ6kVUguKQBwh+odAPod4HV9eXtqJsW1WvwE7gswbGY1oSUdnmO7FBefgY/KSRwxVvImyRVAS5IOORXxCQA+wGRUc/jBS0blAvnYZlSu9t9+yhZob/57mzNgDNtXL5lz3P13Qep8kfXcU+dVZBhTH0sdgX5MgFlEYBNgamJ/59LpdhFoUh9uVUE9JYBdj7ScDyQaFma0BPXKCwFMJoZ9tWt8MKfio5aeXgOLHjtqi0b6O20xawurLTrpb05Frd/RN2/ntEUPAF+/65l7gb6QpG/MrdorF4JtEN5ANfg5W+lRs5qi3xxwkeV09rHp1vg4IkkDFCRZnTnah/IZ/cJ962+p/hfAxIT5T1S98cdbAmCdW/SJ6M/46BLRl4mauw0wem32EkSlREEVgqnZODfF5mjdM0m6liQnLWpv3ToVXUfrcIm2Baj12D7JiYnoBUg8DafS68PU9wcZ7mGyLJN8p7Lg0ZbEy0EujJivbATmLF+5bA/XnLhulutOpdf1cpALo5TKQO/tby7IaGHCQpYik+gQFjKXGdCHKuK1zoAuTMs2R6WBUA5+1vl0H5YfGH8AwLdqU8lY3MlFarLjoqjGm2EnJdlx4eWl+bQTzrf1lVE9LAdhNZOuLGmUtHVleZXnF3ABFxCeXzYfNl0d4k+TAAAAAElFTkSuQmCC',lang:'ar',dir:'rtl'});return}}catch(e){}}
+async function setEvery(m){every=m;S('every',m);clearInterval(timer);
+ if(m){if('Notification' in window&&Notification.permission==='default')await Notification.requestPermission();
+  timer=setInterval(notify,m*60000);}render()}
+if(every)setEvery(every);else render();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
