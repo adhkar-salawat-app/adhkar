@@ -1,4 +1,4 @@
-const C='adhkar-v8',Q='adhkar-q1';
+const C='adhkar-v9',Q='adhkar-q1';
 const A=['./','./index.html','./manifest.webmanifest','./aud1.js','./aud2.js','./aud3.js','./aud4.js'];
 const QF=['./hisn1.js','./hisn2.js',"./q1.js", "./q2.js", "./q3.js", "./q4.js", "./q5.js", "./q6.js", "./q7.js", "./q8.js", "./q9.js"];
 self.addEventListener('install',e=>{e.waitUntil(Promise.all([caches.open(C).then(c=>c.addAll(A)),caches.open(Q).then(c=>Promise.allSettled(QF.map(u=>c.add(u))))]));self.skipWaiting();});
