@@ -197,6 +197,15 @@ function render(){
   row('اهتزاز عند الضغط',toggle(cfg.vib,()=>{cfg.vib=!cfg.vib;sv();render()}),'الآيفون لا يدعم الاهتزاز من المتصفح');
   row('التذكير',opts([[0,'بدون'],[15,'١٥ د'],[30,'٣٠ د'],[60,'ساعة']],every,x=>setEvery(x)),'يعمل والتطبيق مفتوح فقط');
   row('نطق التذكير بصوت',toggle(cfg.speakRem,()=>{cfg.speakRem=!cfg.speakRem;sv();render()}),'قد يمنعه الآيفون إذا لم تضغط على الشاشة قبلها');
+  {const pst=mk('small',null,'');const eb=mk('button','btn',L('psub',null)?'إشعارات الخلفية مفعّلة':'تفعيل إشعارات الخلفية');eb.onclick=()=>enablePush(t=>{pst.textContent=t});
+   row('إشعارات الخلفية (تجريبي)',eb,'تصل والتطبيق مغلق عبر خدمة مجانية، وبتأخير قد يصل إلى ١٥ دقيقة أو أكثر. تحتاج خطوة تفعيل لمرة واحدة.');c.appendChild(pst);
+   row('وقت أذكار الصباح',opts([['05:30','٥:٣٠'],['06:30','٦:٣٠'],['07:30','٧:٣٠']],cfg.pm||'06:30',x=>{cfg.pm=x;sv();render()}));
+   row('وقت أذكار المساء',opts([['16:30','٤:٣٠'],['17:30','٥:٣٠'],['18:30','٦:٣٠']],cfg.pe||'17:30',x=>{cfg.pe=x;sv();render()}));
+   row('تنبيه أوقات الصلاة',toggle(cfg.pp!==false,()=>{cfg.pp=cfg.pp===false;sv();render()}),place?('المدينة: '+place.name):'اختر مدينتك أولًا من قسم مواقيت الصلاة');
+   if(L('psub',null)){const code=pushCode();const ta=mk('textarea');ta.readOnly=true;ta.value=code;ta.style.cssText='width:100%;height:90px;font-size:12px;direction:ltr;margin-top:6px';
+    const cp=mk('button','btn','نسخ كود التفعيل');cp.onclick=async()=>{try{await navigator.clipboard.writeText(code);cp.textContent='تم النسخ'}catch(e){ta.select();document.execCommand('copy');cp.textContent='تم النسخ'}};
+    const sh=mk('button','btn','مشاركة الكود');sh.style.marginInlineStart='8px';sh.onclick=()=>{if(navigator.share)navigator.share({text:code}).catch(()=>{});else cp.click()};
+    const bx=mk('div');bx.append(mk('small',null,'ابعت هذا الكود لمساعدك في المحادثة لإكمال التفعيل. بعد تغيير الأوقات أو المدينة ابعت كودًا جديدًا.'),ta,cp,sh);c.appendChild(bx)}}
   const rs=mk('button','btn','مسح كل العدّادات');rs.onclick=()=>{if(rs.dataset.s){counts={};total=0;free=0;log={};S('log',log);S('c',counts);S('t',0);S('f',0);render()}else{rs.dataset.s=1;rs.textContent='اضغط مرة أخرى للتأكيد'}};
   row('مسح البيانات',rs);
   const shb=mk('button','btn','شارك التطبيق');shb.onclick=()=>share(shb);row('مشاركة التطبيق',shb);row('سمير يحيي',mk('span',null,''));
@@ -239,6 +248,20 @@ function mushafView(){
   body.appendChild(mk('div','src','النص: مشروع تنزيل Tanzil Project (tanzil.net)، الرسم العثماني، ترخيص CC BY 3.0، نص حرفي بدون تعديل.'));
   mn.onclick=()=>{cfg.qf=Math.max(1.2,(cfg.qf||1.7)-.15);sv();q.style.fontSize=cfg.qf+'rem'};pl.onclick=()=>{cfg.qf=Math.min(3,(cfg.qf||1.7)+.15);sv();q.style.fontSize=cfg.qf+'rem'};
   if(el)setTimeout(()=>el.scrollIntoView({block:'center'}),50)}).catch(()=>{body.innerHTML='';body.appendChild(mk('small',null,'تعذر تحميل نص السورة. تأكد من الإنترنت لأول مرة.'))})
+}
+
+const VAPID="BHdDUeV5am1b08uzdY0yxPmFhxm4QVaa_6JdjKg8Iv3kk8QiSVf3oAXU3W1vbuWC7WNvyY7P-Tmru6lyOn3eOtc";
+const u8=b=>{const s=(b+'='.repeat((4-b.length%4)%4)).replace(/-/g,'+').replace(/_/g,'/'),r=atob(s);return Uint8Array.from(Array.from(r).map(c=>c.charCodeAt(0)))};
+function pushCode(){const sub=L('psub',null);if(!sub)return '';const o={s:sub,c:{m:cfg.pm||'06:30',e:cfg.pe||'17:30',p:cfg.pp!==false,la:place?place.lat:null,lo:place?place.lon:null}};return btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
+async function enablePush(msg){
+ try{
+  if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){msg('هذا الجهاز أو المتصفح لا يدعم إشعارات الخلفية. على الآيفون يلزم iOS 16.4 أو أحدث، والتطبيق مثبت على الشاشة الرئيسية ومفتوح منها.');return}
+  const p=await Notification.requestPermission();
+  if(p!=='granted'){msg('لم يتم السماح بالإشعارات. فعّلها من إعدادات الآيفون، الإشعارات، ثم التطبيق.');return}
+  const reg=await navigator.serviceWorker.ready;
+  const sub=(await reg.pushManager.getSubscription())||(await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)}));
+  S('psub',sub.toJSON());render()
+ }catch(e){msg('تعذر التفعيل: '+(e&&e.message?e.message:e))}
 }
 function homeView(){
  const h=$('hero');h.innerHTML='';
