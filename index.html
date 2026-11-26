@@ -84,7 +84,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 <script src="aud4.js"></script>
 <script>
 const sets=[
-{k:'home',l:'الرئيسية'},{k:'hisn',l:'حصن المسلم'},{k:'mushaf',l:'المصحف'},{k:'names',l:'أسماء الله الحسنى'},{k:'fav',l:'المفضلة'},{k:'search',l:'بحث'},{k:'counter',l:'السبحة الحرة',i:[]},
+{k:'home',l:'الرئيسية'},{k:'hisn',l:'حصن المسلم'},{k:'mushaf',l:'المصحف'},{k:'names',l:'أسماء الله الحسنى'},{k:'ruq',l:'الرقية من القرآن'},{k:'qd',l:'أدعية من القرآن'},{k:'fav',l:'المفضلة'},{k:'search',l:'بحث'},{k:'counter',l:'السبحة الحرة',i:[]},
 {k:'salawat',l:'الصلاة على النبي',i:[['اللهم صلِّ على محمد وعلى آل محمد',100],['صلى الله على سيدنا محمد',100],['اللهم صلِّ وسلِّم وبارك على سيدنا محمد',100]]},
 {k:'morning',l:'أذكار الصباح',i:[['أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['سبحان الله وبحمده',100],['لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير',10],['أستغفر الله وأتوب إليه',100]]},
 {k:'evening',l:'أذكار المساء',i:[['أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له',1],['أعوذ بكلمات الله التامات من شر ما خلق',3],['بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم',3],['حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم',7]]},
@@ -146,7 +146,7 @@ function render(){
   const z=mk('button',null,'تصفير');z.onclick=()=>{counts[id]=0;S('c',counts);render()};
   const rb=mk('span');rb.append(k,z);r.appendChild(rb);d.append(t,r);$('list').appendChild(d)});
  $('rem').innerHTML='';[[0,'بدون'],[15,'كل ١٥ دقيقة'],[30,'كل ٣٠ دقيقة'],[60,'كل ساعة']].forEach(([m,l])=>{const b=mk('button',every===m?'on':'',l);b.onclick=()=>setEvery(m);$('rem').appendChild(b)});
- }else if(tab==='home'){homeView()}else if(tab==='mushaf'){mushafView()}else if(tab==='hisn'){hisnView()}else if(tab==='names'){namesView()}else if(tab==='fav'){favView()}else if(tab==='search'){searchView()}else if(tab==='pray'){
+ }else if(tab==='home'){homeView()}else if(tab==='mushaf'){mushafView()}else if(tab==='hisn'){hisnView()}else if(tab==='ruq'){qrefView(RUQ,'الرقية الشرعية من القرآن الكريم')}else if(tab==='qd'){qrefView(QDU,'أدعية من القرآن الكريم')}else if(tab==='names'){namesView()}else if(tab==='fav'){favView()}else if(tab==='search'){searchView()}else if(tab==='pray'){
   const w=$('extra'),c=mk('div','card');w.appendChild(c);
   const sel=mk('select');const o0=mk('option',null,'اختر مدينتك');o0.value='';sel.appendChild(o0);CITIES.forEach(([n],i)=>{const o=mk('option',null,n);o.value=i;if(place&&place.name===n)o.selected=true;sel.appendChild(o)});
   sel.onchange=()=>{if(sel.value==='')return;const [n,la,lo]=CITIES[sel.value];place={name:n,lat:la,lon:lo};S('place',place);render()};
@@ -196,6 +196,7 @@ function render(){
   const w=$('extra');const c=mk('div','card');
   const row=(lab,ctl,sub)=>{const r=mk('div','row');const a=mk('div');a.appendChild(mk('div',null,lab));if(sub)a.appendChild(mk('small',null,sub));r.append(a,ctl);c.appendChild(r)};
   row('المظهر',opts([['auto','تلقائي'],['light','فاتح'],['dark','داكن']],cfg.theme,x=>{cfg.theme=x;sv();render()}));
+  row('هدف الذكر اليومي',opts([[50,'٥٠'],[100,'١٠٠'],[300,'٣٠٠'],[500,'٥٠٠'],[1000,'١٠٠٠']],cfg.goal||100,x=>{cfg.goal=x;sv();render()}),'يظهر في دائرة المتابعة على الرئيسية');
   row('لون التطبيق',opts([['e','أخضر'],['b','أزرق'],['p','بنفسجي'],['g','ذهبي'],['r','وردي']],cfg.th||'e',x=>{cfg.th=x;sv();render()}));
   row('نطق الذكر بصوت عند الضغط',toggle(cfg.speak,()=>{cfg.speak=!cfg.speak;sv();render()}));
   const v=arVoice();
@@ -282,7 +283,7 @@ const favs=()=>L('fav',[]);
 function favBtn(key){const b=mk('button','fv',favs().includes(key)?'★':'☆');b.setAttribute('aria-label','المفضلة');b.onclick=()=>{let f=favs();if(f.includes(key))f=f.filter(x=>x!==key);else f.push(key);S('fav',f);b.textContent=f.includes(key)?'★':'☆'};return b}
 function dCard(id,txt,tg,ref,fk){
  const d=mk('div','card');const t=mk('button','t',txt);const r=mk('div','r');const sp=mk('span');sp.dir='ltr';r.appendChild(sp);
- const upd=()=>{const n=counts[id]||0;sp.textContent=n+' / '+tg+(n>=tg?' ✓':'');d.classList.toggle('done',n>=tg)};upd();
+ const upd=()=>{const n=counts[id]||0;sp.textContent=tg?(n+' / '+tg+(n>=tg?' ✓':'')):String(n);d.classList.toggle('done',tg>0&&n>=tg)};upd();
  t.onclick=()=>{counts[id]=(counts[id]||0)+1;total++;bump();S('c',counts);S('t',total);if(cfg.vib&&navigator.vibrate)navigator.vibrate(15);upd()};
  const z=mk('button',null,'تصفير');z.onclick=()=>{counts[id]=0;S('c',counts);upd()};
  const sh=mk('button',null,'نسخ');sh.onclick=async()=>{const x=txt+(ref?'\n'+ref:'');try{if(navigator.share)await navigator.share({text:x});else{await navigator.clipboard.writeText(x);sh.textContent='تم'}}catch(e){}};
@@ -312,7 +313,7 @@ function favView(){
  const w=$('extra');const c=mk('div','card');w.appendChild(c);const f=favs();
  if(!f.length){c.appendChild(mk('div',null,'لا توجد أذكار في المفضلة بعد. اضغط ☆ بجانب أي ذكر في حصن المسلم لإضافته.'));return}
  const body=mk('div');c.appendChild(body);body.appendChild(mk('small',null,'جاري التحميل...'));
- loadH().then(H=>{body.innerHTML='';f.forEach(k=>{const [t,a,b]=k.split(':');if(t==='h'){const x=H[+a][1][+b];if(x)body.appendChild(dCard('h'+a+'_'+b,x[0],x[1]||1,x[2],k))}})}).catch(()=>{body.textContent='تعذر التحميل'})
+ loadH().then(H=>{body.innerHTML='';f.forEach(k=>{const [t,a,b]=k.split(':');if(t==='h'){const x=H[+a][1][+b];if(x)body.appendChild(dCard('h'+a+'_'+b,x[0],x[1]||1,x[2],k))}else if(t==='q'){const [,s_,a_,b_]=k.split(':').map(Number);const ph=mk('div');body.appendChild(ph);qrefText(s_,a_,b_).then(tx=>{const d=dCard('q'+s_+'_'+a_+'_'+b_,tx,0,'سورة '+QM[s_-1][0].replace('سُورَةُ ','')+'، آية '+ar(a_)+(b_>a_?' - '+ar(b_):''),k);ph.replaceWith(d)})}})}).catch(()=>{body.textContent='تعذر التحميل'})
 }
 let QI=null;
 async function buildQI(msg){if(QI)return QI;const o=[];for(let n=1;n<=114;n++){msg('جاري تجهيز البحث في المصحف '+ar(n)+'/١١٤');const ay=await loadQ(n);ay.forEach((t,i)=>o.push([n,i+1,t,nA(t)]))}QI=o;return o}
@@ -332,6 +333,18 @@ function searchView(){
  let tm;si.oninput=()=>{clearTimeout(tm);tm=setTimeout(run,350)};setTimeout(()=>si.focus(),100)
 }
 function drawBN(){const b=$('bn');if(!b)return;b.innerHTML='';[['home','🏠','الرئيسية'],['hisn','📿','الأذكار'],['mushaf','📖','المصحف'],['fav','⭐','المفضلة'],['counter','🔢','السبحة']].forEach(([k,i,l])=>{const x=mk('button',tab===k?'on':null);x.appendChild(mk('i',null,i));x.appendChild(mk('span',null,l));x.onclick=()=>{if(k==='hisn'||k==='mushaf'){if(tab!==k){hC=null;mS=null}}go(k)};b.appendChild(x)})}
+
+const RUQ=[['سورة الفاتحة',1,1,7],['آية الكرسي',2,255,255],['خواتيم سورة البقرة',2,285,286],['سورة الإخلاص',112,1,4],['سورة الفلق',113,1,5],['سورة الناس',114,1,6],['سورة الأعراف',7,117,122],['سورة يونس',10,81,82],['سورة طه',20,69,69],['آخر سورة الحشر',59,22,24]];
+const QDU=[[null,2,127,128],[null,2,201,201],[null,2,250,250],[null,2,286,286],[null,3,8,8],[null,3,16,16],[null,3,38,38],[null,3,147,147],[null,3,191,194],[null,7,23,23],[null,7,126,126],[null,10,85,86],[null,12,101,101],[null,14,40,41],[null,17,24,24],[null,17,80,80],[null,18,10,10],[null,20,25,28],[null,20,114,114],[null,21,83,83],[null,21,87,87],[null,23,97,98],[null,23,118,118],[null,25,74,74],[null,27,19,19],[null,28,16,16],[null,28,24,24],[null,46,15,15],[null,59,10,10],[null,66,8,8]];
+async function qrefText(s,a,b){const ay=await loadQ(s);const o=[];for(let i=a;i<=b;i++)o.push(ay[i-1]+' \uFD3F'+ar(i)+'\uFD3E');return o.join(' ')}
+function qrefView(list,title){
+ const w=$('extra');const c=mk('div','card');w.appendChild(c);c.appendChild(mk('h2',null,title));
+ const warn=mk('div','warn','الآيات من نص المصحف نفسه (مشروع تنزيل) وتُعرض كاملة بدون تعديل. الاختيار والترتيب للتسهيل فقط، وليس فتوى.');c.appendChild(warn);
+ const box=mk('div');c.appendChild(box);
+ list.forEach(([lab,s,a,b])=>{const ph=mk('div','card');ph.appendChild(mk('small',null,'جاري التحميل...'));box.appendChild(ph);
+  qrefText(s,a,b).then(t=>{const ref='سورة '+QM[s-1][0].replace('سُورَةُ ','')+'، '+(a===b?'آية '+ar(a):'الآيات '+ar(a)+' - '+ar(b));const d=dCard('q'+s+'_'+a+'_'+b,t,0,ref,'q:'+s+':'+a+':'+b);d.querySelector('.t').style.fontFamily='"Amiri Quran","Amiri","Noto Naskh Arabic","Geeza Pro",serif';if(lab){const h=mk('b',null,lab);d.insertBefore(h,d.firstChild)}ph.replaceWith(d)}).catch(()=>{ph.textContent='تعذر التحميل'})});
+}
+function streak(){let n=0;const d=new Date();if(!(log[dkey(d)]>0))d.setDate(d.getDate()-1);while(log[dkey(d)]>0){n++;d.setDate(d.getDate()-1)}return n}
 function homeView(){
  const h=$('hero');h.innerHTML='';
  const hb=mk('div','hb');const m=mk('button',null,'☰');m.onclick=openM;const g=mk('button',null,'⚙');g.onclick=()=>go('set');const sq=mk('button',null,'🔍');sq.onclick=()=>go('search');const fq=mk('button',null,'☆');fq.onclick=()=>go('fav');hb.append(m,g,sq,fq);h.appendChild(hb);
@@ -345,10 +358,10 @@ function homeView(){
  const ch=mk('div','ch');[['pray','مواقيت الصلاة'],['qibla','القبلة'],['daily','آية وحديث'],['stats','إحصائياتي'],['qa','أسئلة دينية']].forEach(([k,l])=>{const x=mk('button',null,l);x.onclick=()=>go(k);ch.appendChild(x)});h.appendChild(ch);
  const w=$('extra');
  const mc=mk('button','hc mu');const lr=L('lr',null);mc.append(mk('b',null,'المصحف'));{const sub=mk('small',null,lr?'تابع القراءة: '+QM[lr.s-1][0]+'، آية '+ar(lr.a):'القرآن الكريم كاملًا، بدون إنترنت');const bx=mk('div');bx.append(mc.firstChild,sub);mc.append(bx)}mc.onclick=()=>{if(lr){mS=lr.s;mA=lr.a}else{mS=null}go('mushaf')};w.appendChild(mc);
- const today=log[dkey()]||0,pc=Math.min(100,Math.round(today));
+ const goal=cfg.goal||100,today=log[dkey()]||0,pc=Math.min(100,Math.round(today*100/goal)),sk=streak();
  const hc=mk('button','hc');const rg=mk('div','ring',pc+'%');rg.style.background='conic-gradient(#e0b070 '+pc*3.6+'deg,rgba(255,255,255,.14) 0)';const ri=mk('span',null,pc+'%');rg.textContent='';ri.style.cssText='background:#2c3846;width:54px;height:54px;border-radius:50%;display:grid;place-items:center';rg.appendChild(ri);
- const tx=mk('div');tx.append(mk('b',null,'متابعة الأذكار'),mk('small',null,'ذكرت اليوم '+today+' من ١٠٠'));hc.append(rg,tx);hc.onclick=()=>go('stats');w.appendChild(hc);
- const gr=mk('div','gr');const cols={hisn:'#e0b070',names:'#f0c36a',fav:'#ff8fb0',counter:'#9ad06a',mushaf:'#e0b070',salawat:'#e0b070',morning:'#6cc6ff',evening:'#ff7a7a',tasbeeh:'#6ea0ff',pray:'#7fd6c2',qibla:'#c9a0e8',daily:'#f0c36a',stats:'#9ad06a',qa:'#e89ab0',set:'#b4bcc4'};
+ const tx=mk('div');tx.append(mk('b',null,'متابعة الأذكار'),mk('small',null,'ذكرت اليوم '+ar(today)+' من '+ar(goal)+(sk?' · سلسلة '+ar(sk)+' يوم 🔥':'')+(today>=goal?' · أتممت هدفك ✓':'')));hc.append(rg,tx);hc.onclick=()=>go('stats');w.appendChild(hc);
+ const gr=mk('div','gr');const cols={ruq:'#7fd6c2',qd:'#c9a0e8',hisn:'#e0b070',names:'#f0c36a',fav:'#ff8fb0',counter:'#9ad06a',mushaf:'#e0b070',salawat:'#e0b070',morning:'#6cc6ff',evening:'#ff7a7a',tasbeeh:'#6ea0ff',pray:'#7fd6c2',qibla:'#c9a0e8',daily:'#f0c36a',stats:'#9ad06a',qa:'#e89ab0',set:'#b4bcc4'};
  sets.filter(x=>!['home','mushaf','search'].includes(x.k)).forEach(x=>{const c=mk('button',null,x.l);c.style.color=cols[x.k];c.style.borderColor=cols[x.k]+'66';c.onclick=()=>go(x.k);gr.appendChild(c)});w.appendChild(gr);
  const wd=mk('button','wd','السبحة الحرة والتذكير');wd.onclick=()=>go('salawat');w.appendChild(wd);
  w.appendChild(mk('div','ft','سمير يحيي'));
